@@ -1,7 +1,7 @@
-# WCGI Template for PHP
+# WCGI WordPress Demo
 
-This is a template project for creating a WCGI-compatible package that can be
-published to WAPM.
+This demo contains a WordPress website that can be run as a WCGI program by
+Wasmer.
 
 ## Getting Started
 
@@ -11,20 +11,7 @@ To run this demo, you will need to install [the Wasmer toolchain][install].
 $ curl https://get.wasmer.io -sSfL | sh
 ```
 
-Now, start writing your PHP code.
-
-```console
-$ echo '<?php phpinfo(); ?>' > ./app/index.php
-```
-
-At this point, you would normally publish the package to WAPM.
-
-```console
-$ wasmer login $MY_API_TOKEN
-$ wasmer publish .
-```
-
-You can also use `wasmer run-unstable` to test things locally.
+You can use `wasmer run-unstable` to run the website locally.
 
 ```console
 $ wasmer run-unstable .
