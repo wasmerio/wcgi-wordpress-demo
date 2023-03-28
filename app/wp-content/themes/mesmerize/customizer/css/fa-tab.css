@@ -1,0 +1,41 @@
+ul.attachments.cp-fa-images,
+.attachments-browser.cp-fa-media .media-toolbar {
+    right: 0px;
+}
+
+li.attachment.cp-fa-image {
+    min-width: 150px;
+    width: 12.5%;
+}
+
+li.attachment.cp-fa-image i.fa {
+   width: 100%;
+   height:90px;
+   font-size:90px;
+   transform: translateY(-50%);
+   position: relative;
+   margin-top: 50%;
+}
+
+li.attachment.cp-fa-image.selected {
+    box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #0073aa;
+}
+
+.cp-fa-images .thumbnail .label {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    padding: 4px;
+    background-color: #444444;
+    color: #ffffff;
+}
+
+
+i.fa-preview-icon {
+    width: 100%;
+    height: 20px;
+    font-size: 20px;
+    transform: translateY(-50%);
+    position: relative;
+    top: 50%;
+}

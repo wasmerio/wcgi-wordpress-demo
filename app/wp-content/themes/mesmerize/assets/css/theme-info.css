@@ -1,0 +1,238 @@
+/* info page css */
+
+.mesmerize-about-page {
+    margin-right: 20px;
+}
+
+.mesmerize_install_notice .license-status.red {
+    color: #f00;
+    font-weight: bold;
+}
+
+.mesmerize-about-page .info-boxes {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: flex;
+}
+
+.mesmerize-about-page .info-box {
+    width: 33.333%;
+    border: 1px solid #eaeaea;
+    padding: 25px 15px 15px;
+    background-color: #f7f7f7;
+    text-align: center;
+    margin: 1%;
+}
+
+.mesmerize-about-page .info-box a {
+    color: #444;
+    text-decoration: none;
+}
+
+.mesmerize-about-page .info-box a:hover {
+    color: #00b9eb;
+}
+
+.mesmerize-about-page .info-box .icon {
+    font-size: 34px;
+    width: auto;
+    height: auto;
+}
+
+.mesmerize-about-page .rp-panel {
+    position: relative;
+    overflow: auto;
+    margin: 16px 0;
+    margin-left: 1%;
+    padding: 0 10px;
+    border: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    background: #fff;
+    font-size: 13px;
+    line-height: 2.1em;
+}
+
+.mesmerize-about-page .rp-panel p {
+    font-size: 16px;
+}
+
+.mesmerize-about-page .rp-c {
+    margin-left: 1%;
+    width: 60%;
+}
+
+.mesmerize-about-page .rp-plugin-title {
+    margin-top: 0px;
+}
+
+/** new page css */
+
+.mesmerize-page .tab-item {
+    display: none;
+}
+
+.mesmerize-page .nav-tab:focus {
+    box-shadow: none;
+}
+
+.mesmerize-page .tab-item.tab-item-active {
+    display: block;
+}
+
+.welcome-panel.tab-cols {
+    padding: 1rem 0;
+}
+
+.mesmerize-page .tab-cols {
+    padding-top: 1.5rem;
+}
+
+.mesmerize-page .tab-cols .col {
+    padding: 0.5rem 1rem;
+}
+
+.bordered-right.col {
+    border-right: 1px solid #cccccc;
+}
+
+.mesmerize-page .col-title {
+    text-align: left;
+    margin-top: 0.25em;
+}
+
+.mesmerize-page .col-subtitle {
+    font-weight: normal;
+}
+
+.mesmerize-page .recommended-plugins {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.mesmerize-page .rp-plugin-title {
+    margin-top: 0.5em;
+}
+
+.mesmerize-page .mesmerize_install_notice {
+    background: #fff;
+    border-left: 4px solid #ffb900;
+    padding: 10px 10px;
+    margin: 15px 0 15px;
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, .1);
+}
+
+.mesmerize-page .mesmerize_install_notice.blue {
+    border-left-color: #00a0d2;
+}
+
+.mesmerize-page .mesmerize_install_notice {
+    margin-top: 1.2rem;
+    padding-left: 2%;
+}
+
+.mesmerize-page .mesmerize_install_notice table {
+    display: inline;
+}
+
+.mesmerize-page .site-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    width: 260px;
+
+}
+
+.mesmerize-page .tab-cols .table-col-title,
+.mesmerize-page .tab-cols .table-col-value {
+    text-align: center;
+}
+
+.mesmerize-page .widefat td {
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+.mesmerize-page .table-col-value .dashicons {
+    width: auto;
+    height: 1em;
+}
+
+.mesmerize-page .table-col-value .dashicons-yes:before {
+    font-size: 28px;
+}
+
+.mesmerize-page .table-col-value .dashicons-dismiss:before {
+    font-size: 26px;
+}
+
+.mesmerize-page .table-col-value .dashicons.dashicons-yes {
+    color: #4CAF50;
+}
+
+.mesmerize-page .table-col-value .dashicons.dashicons-dismiss {
+    color: #EF5350;
+}
+
+.mesmerize-page .comparision-table h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.mesmerize-page .table-col-feature {
+    padding-left: 1em;
+}
+
+.mesmerize-page .comparision-table h4 {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    font-weight: 400;
+}
+
+.mesmerize-page .metabox-holder h2.title {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+}
+
+.mesmerize-page .widefat.no-border {
+    border: none;
+}
+
+.mesmerize-page .changelog-container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mesmerize-page .changelog-container ul {
+    list-style: initial;
+    display: block;
+    box-sizing: border-box;
+    padding-left: 2em;
+}
+
+.mesmerize-page .changelog-container .area {
+    display: block;
+    padding: 0.4em 1.5em;
+    margin: 0 1px;
+    border: 1px solid #cccccc;
+    background: rgb(255, 255, 255);
+    margin-bottom: 1em;
+}
+
+.appearance_page_mesmerize-welcome div#wpfooter,
+.appearance_page_mesmerize-demos div#wpfooter {
+    display: none;
+}
+
+.appearance_page_mesmerize-welcome .wrap.about-wrap.full-width-layout.mesmerize-page ,
+.appearance_page_mesmerize-demos .wrap.about-wrap.full-width-layout.mesmerize-page {
+    max-width: 100%;
+}

@@ -1,0 +1,124 @@
+.wf-container {
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    background: #eee;
+    border: 1px solid #dfdfdf;
+    position: relative;
+}
+
+.wf-container:hover{
+    border: 1px solid #999;
+}
+
+.wf-header {
+    background-color: hsla(0, 0%, 83%, 1);
+    background: white;
+    border: 1px solid #dfdfdf;
+    padding: 10px 15px;
+    height: auto;
+    min-height: 20px;
+    line-height: 30px;
+    overflow: hidden;
+    width: auto;
+    word-wrap: break-word;
+    display: block;
+    color: rgb(85, 93, 102);
+    position: relative;
+    cursor: pointer;
+}
+
+.wf-name-holder {
+    font-size: 12px;
+    line-height: 20px;
+    display: block;
+    text-transform: capitalize;
+    width: 90%;
+    overflow: hidden;
+    height: 18px;
+}
+
+.wf-container p {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #999;
+    background-color: #ffffff;
+}
+
+.wf-weight {
+    float: left;
+    padding: 4px 10px;
+    margin: 2px 1px;
+    background: #ffffff;
+    font-size: 12px;
+    border-radius: 3px;
+    border: 1px solid #b3b3b3;
+    cursor: pointer;
+}
+
+.wf-footer {
+    display: inline-block;
+    border-top: 1px solid #cecece;
+    margin: 4px 10px;
+    padding: 10px 0px 0px 0px;
+    width: calc(100% - 20px);
+}
+
+.wf-footer span {
+    float: left;
+    height: 34px;
+    margin-right: 4px;
+    line-height: 34px;
+    font-size: 10px;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+span.tip {
+    padding: 0px 0px 10px 10px;
+    display: block;
+    font-size: 10px;
+    clear: both;
+    font-weight: normal;
+    font-family: initial;
+}
+
+a.add {
+    font-family: sans-serif;
+    font-size: 13px!important;
+}
+
+a.add:hover {
+    background: #09f;
+    color: #ffffff;
+}
+
+.wf-container + a.add {
+    position: static;
+    margin: 10px auto 10px auto;
+}
+
+.wf-edit,
+.wf-remove {
+    width: 48%;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 12px!important;
+}
+
+.wf-content {
+    display: none;
+}
+
+i.dashicons{
+    position:absolute;
+    right: 10px;
+    top: 0px;
+    height: 20px;
+    padding-top: 10px;
+    color: #a0a5aa;
+}
+
+.wf-actions{
+    padding: 10px;
+}
