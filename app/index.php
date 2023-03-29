@@ -14,11 +14,12 @@
  */
 define('WP_USE_THEMES', true);
 define('WP_DEFAULT_THEME', 'mesmerize');
-define('USE_CACHE', true);
+define('USE_CACHE', false);
 define('SERVE_STATIC', true);
 
 // var_dump($_SERVER);
 $PATH_INFO = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
+echo $PATH_INFO;
 $requestedAbsoluteFile = dirname(__FILE__) . $PATH_INFO;
 if (SERVE_STATIC && is_file($requestedAbsoluteFile)) {
     // if requested file is'nt a php file

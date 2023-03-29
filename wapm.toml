@@ -13,9 +13,9 @@ abi = "wasi"
 
 [[command]]
 name = "php"
-runner = "https://webc.org/runner/wcgi"
+runner = "wcgi"
 module = "php"
-annotations = { wcgi = { dialect = "rfc-3875" } }
+annotations = { wcgi = { dialect = "rfc-3875" }, wasi = { env = ["SCRIPT_NAME=/app/index.php", "DOCUMENT_ROOT=/app/"], atom = "php"} }
 
 [fs]
 "app" = "app"
