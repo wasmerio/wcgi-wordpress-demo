@@ -13,7 +13,7 @@ abi = "wasi"
 
 [[command]]
 name = "php"
-runner = "https://webc.org/runner/wcgi"
+runner = "wcgi"
 module = "php"
 
 [command.annotations]
