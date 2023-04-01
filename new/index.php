@@ -1,8 +1,14 @@
 <?php
 
+/// Use this if you want to use with local php:
+/// cd new && php -S localhost:8000
 // define("DB_PATH", dirname(__DIR__)."/db/.ht.sqlite");
-// echo DB_PATH;
+
+/// Use this if you want to use with Wasmer:
+/// cd new && wasmer-dev run-unstable .. --mapdir=/db:../db
 define("DB_PATH", "/db/.ht.sqlite");
+
+echo "DB at: ". DB_PATH;
 
 class MyDB extends SQLite3 {
     function __construct() {
