@@ -1,4 +1,15 @@
 <?php
+
+function var_error_log(...$vars)
+{
+    ob_start();                    // start buffer capture
+    echo "WCGI Debug: ";
+    var_dump(...$vars);           // dump the values
+    $contents = ob_get_contents(); // put the buffer into a variable
+    ob_end_clean();                // end capture
+    error_log($contents, 0);        // log contents of the result of var_dump( $object )
+}
+
 /**
  * The base configuration for WordPress
  *

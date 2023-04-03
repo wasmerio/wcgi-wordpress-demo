@@ -737,6 +737,7 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		}
 
 		$user = get_user_by( 'login', $username );
+
 		if ( ! $user ) {
 			/**
 			 * Fires if a bad username is entered in the user authentication process.
@@ -765,6 +766,8 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		// If ext/hash is not present, compat.php's hash_hmac() does not support sha256.
 		$algo = function_exists( 'hash' ) ? 'sha256' : 'sha1';
 		$hash = hash_hmac( $algo, $username . '|' . $expiration . '|' . $token, $key );
+
+		var_error_log( $algo, $user, $username . '|' . $pass_frag . '|' . $expiration . '|' . $token, $scheme );
 
 		if ( ! hash_equals( $hash, $hmac ) ) {
 			/**
@@ -929,6 +932,7 @@ if ( ! function_exists( 'wp_parse_auth_cookie' ) ) :
 						$scheme      = 'auth';
 					}
 			}
+			// echo "PARSE COOKIE ($cookie) - $cookie_name, scheme: $scheme\n";
 
 			if ( empty( $_COOKIE[ $cookie_name ] ) ) {
 				return false;
@@ -1205,7 +1209,9 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		 */
 		$scheme = apply_filters( 'auth_redirect_scheme', '' );
 
+		// var_dump($_COOKIE);
 		$user_id = wp_validate_auth_cookie( '', $scheme );
+		var_error_log("USER ID", $user_id);
 		if ( $user_id ) {
 			/**
 			 * Fires before the authentication redirect.
@@ -1407,7 +1413,8 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 
 		$location = wp_sanitize_redirect( $location );
 
-		if ( ! $is_IIS && 'cgi-fcgi' !== PHP_SAPI ) {
+		// var_dump(PHP_SAPI, $status);
+		if ( ! $is_IIS && 'cgi-fcgi' !== PHP_SAPI || true ) {
 			status_header( $status ); // This causes problems on IIS and some FastCGI setups.
 		}
 
