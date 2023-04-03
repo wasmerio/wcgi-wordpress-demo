@@ -33,6 +33,7 @@ if (!function_exists('realpath')) {
         return str_replace('//', '/', '/' . implode('/', $absolutes));
     }
 }
+
 define('WP_USE_THEMES', true);
 // define('WP_DEFAULT_THEME', 'mesmerize');
 define('USE_CACHE', false);
@@ -45,6 +46,14 @@ define('SERVE_STATIC', true);
 $PATH_INFO = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
 
 $requestedAbsoluteFile = dirname(__FILE__) . $PATH_INFO;
+
+if (is_dir($requestedAbsoluteFile)) {
+    $requestedAbsoluteFileWithIndex = $requestedAbsoluteFile . "/index.php";
+    if (is_file($requestedAbsoluteFileWithIndex)) {
+        $requestedAbsoluteFile = $requestedAbsoluteFileWithIndex;
+    }
+}
+
 if (SERVE_STATIC && is_file($requestedAbsoluteFile)) {
     // if requested file is'nt a php file
     if (!preg_match('/\.php$/', $requestedAbsoluteFile)) {
