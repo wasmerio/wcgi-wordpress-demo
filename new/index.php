@@ -2,11 +2,11 @@
 
 /// Use this if you want to use with local php:
 /// cd new && php -S localhost:8000
-// define("DB_PATH", dirname(__DIR__)."/db/.ht.sqlite");
+define("DB_PATH", dirname(__DIR__)."/db/.ht.sqlite");
 
 /// Use this if you want to use with Wasmer:
 /// cd new && wasmer-dev run-unstable .. --mapdir=/db:../db
-define("DB_PATH", "/db/.ht.sqlite");
+// define("DB_PATH", "/db/.ht.sqlite");
 
 echo "DB at: ". DB_PATH;
 

@@ -15,8 +15,10 @@
 define('WP_USE_THEMES', true);
 define('WP_DEFAULT_THEME', 'mesmerize');
 define('USE_CACHE', false);
-define('DB_DIR', '/db/');
-define('DB_FILE', "db.sqlite");
+define('DB_ENGINE', 'sqlite');
+// define('DB_DIR', '/db/');
+define('DB_DIR', dirname(dirname(__FILE__)).'/db/');
+// define('DB_FILE', "db.sqlite");
 define('SERVE_STATIC', true);
 
 $PATH_INFO = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
