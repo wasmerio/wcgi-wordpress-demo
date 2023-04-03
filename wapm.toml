@@ -19,7 +19,7 @@ module = "php"
 [command.annotations]
 wcgi = { dialect = "rfc-3875" }
 # wasi = { atom = "php", env = ["SCRIPT_FILENAME=/new/index.php", "DOCUMENT_ROOT=/new/"] }
-wasi = { atom = "php", env = ["SCRIPT_FILENAME=/app/index.php", "DOCUMENT_ROOT=/app/"] }
+wasi = { atom = "php", env = ["SCRIPT_FILENAME=/app/app.php", "DOCUMENT_ROOT=/app/"] }
 
 [fs]
 # "new" = "new"

@@ -1,6 +1,6 @@
 <?php
 
-if (false) {
+if (true) {
     require_once __DIR__ . '/sqlite/db.php';
 }
 else {
