@@ -50,7 +50,7 @@ if ( $action ) {
 
 			if ( is_multisite() && ! is_network_admin() && is_network_only_plugin( $plugin ) ) {
 				wp_redirect( self_admin_url( "plugins.php?plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			check_admin_referer( 'activate-plugin_' . $plugin );
@@ -60,7 +60,7 @@ if ( $action ) {
 				if ( 'unexpected_output' === $result->get_error_code() ) {
 					$redirect = self_admin_url( 'plugins.php?error=true&charsout=' . strlen( $result->get_error_data() ) . '&plugin=' . urlencode( $plugin ) . "&plugin_status=$status&paged=$page&s=$s" );
 					wp_redirect( add_query_arg( '_error_nonce', wp_create_nonce( 'plugin-activation-error_' . $plugin ), $redirect ) );
-					exit;
+					exit(0);
 				} else {
 					wp_die( $result );
 				}
@@ -85,7 +85,7 @@ if ( $action ) {
 				// Overrides the ?error=true one above.
 				wp_redirect( self_admin_url( "plugins.php?activate=true&plugin_status=$status&paged=$page&s=$s" ) );
 			}
-			exit;
+			exit(0);
 
 		case 'activate-selected':
 			if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -118,7 +118,7 @@ if ( $action ) {
 
 			if ( empty( $plugins ) ) {
 				wp_redirect( self_admin_url( "plugins.php?plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			activate_plugins( $plugins, self_admin_url( 'plugins.php?error=true' ), is_network_admin() );
@@ -140,7 +140,7 @@ if ( $action ) {
 			}
 
 			wp_redirect( self_admin_url( "plugins.php?activate-multi=true&plugin_status=$status&paged=$page&s=$s" ) );
-			exit;
+			exit(0);
 
 		case 'update-selected':
 			check_admin_referer( 'bulk-plugins' );
@@ -169,7 +169,7 @@ if ( $action ) {
 			echo "<iframe src='$url' style='width: 100%; height:100%; min-height:850px;'></iframe>";
 			echo '</div>';
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-			exit;
+			exit(0);
 
 		case 'error_scrape':
 			if ( ! current_user_can( 'activate_plugin', $plugin ) ) {
@@ -192,7 +192,7 @@ if ( $action ) {
 			plugin_sandbox_scrape( $plugin );
 			/** This action is documented in wp-admin/includes/plugin.php */
 			do_action( "activate_{$plugin}" );
-			exit;
+			exit(0);
 
 		case 'deactivate':
 			if ( ! current_user_can( 'deactivate_plugin', $plugin ) ) {
@@ -203,7 +203,7 @@ if ( $action ) {
 
 			if ( ! is_network_admin() && is_plugin_active_for_network( $plugin ) ) {
 				wp_redirect( self_admin_url( "plugins.php?plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			deactivate_plugins( $plugin, false, is_network_admin() );
@@ -219,7 +219,7 @@ if ( $action ) {
 			} else {
 				wp_redirect( self_admin_url( "plugins.php?deactivate=true&plugin_status=$status&paged=$page&s=$s" ) );
 			}
-			exit;
+			exit(0);
 
 		case 'deactivate-selected':
 			if ( ! current_user_can( 'deactivate_plugins' ) ) {
@@ -245,7 +245,7 @@ if ( $action ) {
 			}
 			if ( empty( $plugins ) ) {
 				wp_redirect( self_admin_url( "plugins.php?plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			deactivate_plugins( $plugins, false, is_network_admin() );
@@ -262,7 +262,7 @@ if ( $action ) {
 			}
 
 			wp_redirect( self_admin_url( "plugins.php?deactivate-multi=true&plugin_status=$status&paged=$page&s=$s" ) );
-			exit;
+			exit(0);
 
 		case 'delete-selected':
 			if ( ! current_user_can( 'delete_plugins' ) ) {
@@ -275,13 +275,13 @@ if ( $action ) {
 			$plugins = isset( $_REQUEST['checked'] ) ? (array) wp_unslash( $_REQUEST['checked'] ) : array();
 			if ( empty( $plugins ) ) {
 				wp_redirect( self_admin_url( "plugins.php?plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			$plugins = array_filter( $plugins, 'is_plugin_inactive' ); // Do not allow to delete activated plugins.
 			if ( empty( $plugins ) ) {
 				wp_redirect( self_admin_url( "plugins.php?error=true&main=true&plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			// Bail on all if any paths are invalid.
@@ -289,7 +289,7 @@ if ( $action ) {
 			$invalid_plugin_files = array_filter( $plugins, 'validate_file' );
 			if ( $invalid_plugin_files ) {
 				wp_redirect( self_admin_url( "plugins.php?plugin_status=$status&paged=$page&s=$s" ) );
-				exit;
+				exit(0);
 			}
 
 			require ABSPATH . 'wp-admin/update.php';
@@ -404,7 +404,7 @@ if ( $action ) {
 				<?php
 
 				require_once ABSPATH . 'wp-admin/admin-footer.php';
-				exit;
+				exit(0);
 			} else {
 				$plugins_to_delete = count( $plugins );
 			} // End if verify-delete.
@@ -414,7 +414,7 @@ if ( $action ) {
 			// Store the result in a cache rather than a URL param due to object type & length.
 			set_transient( 'plugins_delete_result_' . $user_ID, $delete_result );
 			wp_redirect( self_admin_url( "plugins.php?deleted=$plugins_to_delete&plugin_status=$status&paged=$page&s=$s" ) );
-			exit;
+			exit(0);
 		case 'clear-recent-list':
 			if ( ! is_network_admin() ) {
 				update_option( 'recently_activated', array() );
@@ -441,7 +441,7 @@ if ( $action ) {
 			}
 
 			wp_redirect( self_admin_url( "plugins.php?resume=true&plugin_status=$status&paged=$page&s=$s" ) );
-			exit;
+			exit(0);
 		case 'enable-auto-update':
 		case 'disable-auto-update':
 		case 'enable-auto-update-selected':
@@ -459,14 +459,14 @@ if ( $action ) {
 			if ( 'enable-auto-update' === $action || 'disable-auto-update' === $action ) {
 				if ( empty( $plugin ) ) {
 					wp_redirect( $redirect );
-					exit;
+					exit(0);
 				}
 
 				check_admin_referer( 'updates' );
 			} else {
 				if ( empty( $_POST['checked'] ) ) {
 					wp_redirect( $redirect );
-					exit;
+					exit(0);
 				}
 
 				check_admin_referer( 'bulk-plugins' );
@@ -497,7 +497,7 @@ if ( $action ) {
 				// Must use non-strict comparison, so that array order is not treated as significant.
 				if ( $new_auto_updates == $auto_updates ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 					wp_redirect( $redirect );
-					exit;
+					exit(0);
 				}
 
 				$auto_updates = $new_auto_updates;
@@ -513,7 +513,7 @@ if ( $action ) {
 			update_site_option( 'auto_update_plugins', $auto_updates );
 
 			wp_redirect( $redirect );
-			exit;
+			exit(0);
 		default:
 			if ( isset( $_POST['checked'] ) ) {
 				check_admin_referer( 'bulk-plugins' );
@@ -525,7 +525,7 @@ if ( $action ) {
 				/** This action is documented in wp-admin/edit.php */
 				$sendback = apply_filters( "handle_bulk_actions-{$screen}", $sendback, $action, $plugins ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 				wp_safe_redirect( $sendback );
-				exit;
+				exit(0);
 			}
 			break;
 	}

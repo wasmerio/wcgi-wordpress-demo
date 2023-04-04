@@ -22,17 +22,17 @@ if ( isset( $_GET['page'] ) && ! empty( $_POST ) ) {
 if ( isset( $_GET['wp-privacy-policy-guide'] ) ) {
 	require_once dirname( __DIR__ ) . '/wp-load.php';
 	wp_redirect( admin_url( 'options-privacy.php?tab=policyguide' ), 301 );
-	exit;
+	exit(0);
 } elseif ( isset( $_GET['page'] ) ) {
 	// These were also moved to files in WP 5.3.
 	if ( 'export_personal_data' === $_GET['page'] ) {
 		require_once dirname( __DIR__ ) . '/wp-load.php';
 		wp_redirect( admin_url( 'export-personal-data.php' ), 301 );
-		exit;
+		exit(0);
 	} elseif ( 'remove_personal_data' === $_GET['page'] ) {
 		require_once dirname( __DIR__ ) . '/wp-load.php';
 		wp_redirect( admin_url( 'erase-personal-data.php' ), 301 );
-		exit;
+		exit(0);
 	}
 }
 

@@ -156,7 +156,7 @@ class WP_Recovery_Mode {
 	/**
 	 * Handles a fatal error occurring.
 	 *
-	 * The calling API should immediately die() after calling this function.
+	 * The calling API should immediately exit(0); after calling this function.
 	 *
 	 * @since 5.2.0
 	 *
@@ -232,7 +232,7 @@ class WP_Recovery_Mode {
 
 		if ( ! $this->is_active() ) {
 			wp_safe_redirect( $redirect_to );
-			die;
+			exit(0);
 		}
 
 		if ( ! isset( $_GET['action'] ) || self::EXIT_ACTION !== $_GET['action'] ) {
@@ -248,7 +248,7 @@ class WP_Recovery_Mode {
 		}
 
 		wp_safe_redirect( $redirect_to );
-		die;
+		exit(0);
 	}
 
 	/**
@@ -466,6 +466,6 @@ class WP_Recovery_Mode {
 
 		$url = "{$scheme}{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 		wp_safe_redirect( $url );
-		exit;
+		exit(0);
 	}
 }

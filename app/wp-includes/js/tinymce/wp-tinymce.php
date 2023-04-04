@@ -41,4 +41,4 @@ if ( isset( $_GET['c'] ) && $file ) {
 	echo get_file( $basepath . '/tinymce.min.js' );
 	echo get_file( $basepath . '/plugins/compat3x/plugin.min.js' );
 }
-exit;
+exit(0);

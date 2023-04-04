@@ -58,7 +58,7 @@ if ( isset( $_GET['rsd'] ) ) { // http://cyber.law.harvard.edu/blogs/gems/tech/r
 	</service>
 </rsd>
 	<?php
-	exit;
+	exit(0);
 }
 
 require_once ABSPATH . 'wp-admin/includes/admin.php';
@@ -86,7 +86,7 @@ $wp_xmlrpc_server       = new $wp_xmlrpc_server_class();
 // Fire off the request.
 $wp_xmlrpc_server->serve_request();
 
-exit;
+exit(0);
 
 /**
  * logIO() - Writes logging info to a file.

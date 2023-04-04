@@ -38,10 +38,10 @@ if ( $doaction && isset( $_REQUEST['linkcheck'] ) ) {
 		$redirect_to = apply_filters( "handle_bulk_actions-{$screen}", $redirect_to, $doaction, $bulklinks ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 	}
 	wp_redirect( $redirect_to );
-	exit;
+	exit(0);
 } elseif ( ! empty( $_GET['_wp_http_referer'] ) ) {
 	wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-	exit;
+	exit(0);
 }
 
 $wp_list_table->prepare_items();

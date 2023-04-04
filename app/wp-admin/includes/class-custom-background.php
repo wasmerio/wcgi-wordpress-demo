@@ -617,7 +617,7 @@ class Custom_Background {
 		check_ajax_referer( 'custom-background' );
 
 		if ( ! current_user_can( 'edit_theme_options' ) || ! isset( $_POST['attachment_id'] ) ) {
-			exit;
+			exit(0);
 		}
 
 		$attachment_id = absint( $_POST['attachment_id'] );
@@ -646,6 +646,6 @@ class Custom_Background {
 		$thumbnail = wp_get_attachment_image_src( $attachment_id, 'thumbnail' );
 		set_theme_mod( 'background_image', sanitize_url( $url[0] ) );
 		set_theme_mod( 'background_image_thumb', sanitize_url( $thumbnail[0] ) );
-		exit;
+		exit(0);
 	}
 }

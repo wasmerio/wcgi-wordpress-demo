@@ -903,5 +903,5 @@ function install_plugin_information() {
 	echo "</div>\n";
 
 	iframe_footer();
-	exit;
+	exit(0);
 }

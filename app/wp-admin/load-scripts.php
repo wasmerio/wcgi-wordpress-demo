@@ -30,7 +30,7 @@ $load = array_unique( explode( ',', $load ) );
 
 if ( empty( $load ) ) {
 	header( "$protocol 400 Bad Request" );
-	exit;
+	exit(0);
 }
 
 require ABSPATH . 'wp-admin/includes/noop.php';
@@ -47,7 +47,7 @@ wp_default_packages_scripts( $wp_scripts );
 
 if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) && stripslashes( $_SERVER['HTTP_IF_NONE_MATCH'] ) === $wp_version ) {
 	header( "$protocol 304 Not Modified" );
-	exit;
+	exit(0);
 }
 
 foreach ( $load as $handle ) {
@@ -65,4 +65,4 @@ header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $expires_offset ) . ' G
 header( "Cache-Control: public, max-age=$expires_offset" );
 
 echo $out;
-exit;
+exit(0);

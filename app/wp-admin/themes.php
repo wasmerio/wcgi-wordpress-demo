@@ -32,7 +32,7 @@ if ( current_user_can( 'switch_themes' ) && isset( $_GET['action'] ) ) {
 
 		switch_theme( $theme->get_stylesheet() );
 		wp_redirect( admin_url( 'themes.php?activated=true' ) );
-		exit;
+		exit(0);
 	} elseif ( 'resume' === $_GET['action'] ) {
 		check_admin_referer( 'resume-theme_' . $_GET['stylesheet'] );
 		$theme = wp_get_theme( $_GET['stylesheet'] );
@@ -52,7 +52,7 @@ if ( current_user_can( 'switch_themes' ) && isset( $_GET['action'] ) ) {
 		}
 
 		wp_redirect( admin_url( 'themes.php?resumed=true' ) );
-		exit;
+		exit(0);
 	} elseif ( 'delete' === $_GET['action'] ) {
 		check_admin_referer( 'delete-theme_' . $_GET['stylesheet'] );
 		$theme = wp_get_theme( $_GET['stylesheet'] );
@@ -80,7 +80,7 @@ if ( current_user_can( 'switch_themes' ) && isset( $_GET['action'] ) ) {
 			delete_theme( $_GET['stylesheet'] );
 			wp_redirect( admin_url( 'themes.php?deleted=true' ) );
 		}
-		exit;
+		exit(0);
 	} elseif ( 'enable-auto-update' === $_GET['action'] ) {
 		if ( ! ( current_user_can( 'update_themes' ) && wp_is_auto_update_enabled_for_type( 'theme' ) ) ) {
 			wp_die( __( 'Sorry, you are not allowed to enable themes automatic updates.' ) );
@@ -100,7 +100,7 @@ if ( current_user_can( 'switch_themes' ) && isset( $_GET['action'] ) ) {
 
 		wp_redirect( admin_url( 'themes.php?enabled-auto-update=true' ) );
 
-		exit;
+		exit(0);
 	} elseif ( 'disable-auto-update' === $_GET['action'] ) {
 		if ( ! ( current_user_can( 'update_themes' ) && wp_is_auto_update_enabled_for_type( 'theme' ) ) ) {
 			wp_die( __( 'Sorry, you are not allowed to disable themes automatic updates.' ) );
@@ -119,7 +119,7 @@ if ( current_user_can( 'switch_themes' ) && isset( $_GET['action'] ) ) {
 
 		wp_redirect( admin_url( 'themes.php?disabled-auto-update=true' ) );
 
-		exit;
+		exit(0);
 	}
 }
 

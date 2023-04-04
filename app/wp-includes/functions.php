@@ -1732,7 +1732,7 @@ function do_favicon() {
 	do_action( 'do_faviconico' );
 
 	wp_redirect( get_site_icon_url( 32, includes_url( 'images/w-logo-blue-white-bg.png' ) ) );
-	exit;
+	exit(0);
 }
 
 /**
@@ -3613,7 +3613,7 @@ function wp_nonce_ays( $action ) {
 /**
  * Kills WordPress execution and displays HTML page with an error message.
  *
- * This function complements the `die()` PHP function. The difference is that
+ * This function complements the `exit(0);` PHP function. The difference is that
  * HTML will be displayed to the user. It is recommended to use this function
  * only when the execution should not continue any further. It is not recommended
  * to call this function very often, and try to handle as many errors as possible
@@ -3734,8 +3734,8 @@ function wp_die( $message = '', $title = '', $args = array() ) {
 /**
  * Kills WordPress execution and displays HTML page with an error message.
  *
- * This is the default handler for wp_die(). If you want a custom one,
- * you can override this using the {@see 'wp_die_handler'} filter in wp_die().
+ * This is the default handler for wp_exit(0);. If you want a custom one,
+ * you can override this using the {@see 'wp_die_handler'} filter in wp_exit(0);.
  *
  * @since 3.0.0
  * @access private
@@ -3930,14 +3930,14 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 </html>
 	<?php
 	if ( $parsed_args['exit'] ) {
-		die();
+		exit(0);;
 	}
 }
 
 /**
  * Kills WordPress execution and displays Ajax response with an error message.
  *
- * This is the handler for wp_die() when processing Ajax requests.
+ * This is the handler for wp_exit(0); when processing Ajax requests.
  *
  * @since 3.4.0
  * @access private
@@ -3979,7 +3979,7 @@ function _ajax_wp_die_handler( $message, $title = '', $args = array() ) {
 /**
  * Kills WordPress execution and displays JSON response with an error message.
  *
- * This is the handler for wp_die() when processing JSON requests.
+ * This is the handler for wp_exit(0); when processing JSON requests.
  *
  * @since 5.1.0
  * @access private
@@ -4010,14 +4010,14 @@ function _json_wp_die_handler( $message, $title = '', $args = array() ) {
 
 	echo wp_json_encode( $data );
 	if ( $parsed_args['exit'] ) {
-		die();
+		exit(0);;
 	}
 }
 
 /**
  * Kills WordPress execution and displays JSONP response with an error message.
  *
- * This is the handler for wp_die() when processing JSONP requests.
+ * This is the handler for wp_exit(0); when processing JSONP requests.
  *
  * @since 5.2.0
  * @access private
@@ -4052,14 +4052,14 @@ function _jsonp_wp_die_handler( $message, $title = '', $args = array() ) {
 	$jsonp_callback = $_GET['_jsonp'];
 	echo '/**/' . $jsonp_callback . '(' . $result . ')';
 	if ( $parsed_args['exit'] ) {
-		die();
+		exit(0);;
 	}
 }
 
 /**
  * Kills WordPress execution and displays XML response with an error message.
  *
- * This is the handler for wp_die() when processing XMLRPC requests.
+ * This is the handler for wp_exit(0); when processing XMLRPC requests.
  *
  * @since 3.2.0
  * @access private
@@ -4084,14 +4084,14 @@ function _xmlrpc_wp_die_handler( $message, $title = '', $args = array() ) {
 		$wp_xmlrpc_server->output( $error->getXml() );
 	}
 	if ( $parsed_args['exit'] ) {
-		die();
+		exit(0);;
 	}
 }
 
 /**
  * Kills WordPress execution and displays XML response with an error message.
  *
- * This is the handler for wp_die() when processing XML requests.
+ * This is the handler for wp_exit(0); when processing XML requests.
  *
  * @since 5.2.0
  * @access private
@@ -4128,14 +4128,14 @@ EOD;
 
 	echo $xml;
 	if ( $parsed_args['exit'] ) {
-		die();
+		exit(0);;
 	}
 }
 
 /**
  * Kills WordPress execution and displays an error message.
  *
- * This is the handler for wp_die() when processing APP requests.
+ * This is the handler for wp_exit(0); when processing APP requests.
  *
  * @since 3.4.0
  * @since 5.1.0 Added the $title and $args parameters.
@@ -4152,7 +4152,7 @@ function _scalar_wp_die_handler( $message = '', $title = '', $args = array() ) {
 		if ( is_scalar( $message ) ) {
 			die( (string) $message );
 		}
-		die();
+		exit(0);;
 	}
 
 	if ( is_scalar( $message ) ) {
@@ -4161,7 +4161,7 @@ function _scalar_wp_die_handler( $message = '', $title = '', $args = array() ) {
 }
 
 /**
- * Processes arguments passed to wp_die() consistently for its handlers.
+ * Processes arguments passed to wp_exit(0); consistently for its handlers.
  *
  * @since 5.1.0
  * @access private
@@ -4436,7 +4436,7 @@ function wp_send_json( $response, $status_code = null, $options = 0 ) {
 			)
 		);
 	} else {
-		die;
+		exit(0);
 	}
 }
 
@@ -5345,7 +5345,7 @@ function dead_db() {
 	// Load custom DB error template, if present.
 	if ( file_exists( WP_CONTENT_DIR . '/db-error.php' ) ) {
 		require_once WP_CONTENT_DIR . '/db-error.php';
-		die();
+		exit(0);;
 	}
 
 	// If installing or in the admin, provide the verbose message.

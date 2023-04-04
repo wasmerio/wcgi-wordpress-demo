@@ -36,7 +36,7 @@ if ( $_POST ) {
 		}
 	}
 	wp_redirect( admin_url( 'upload.php' ) );
-	exit;
+	exit(0);
 }
 
 // Used in the HTML title tag.

@@ -11,7 +11,7 @@ nocache_headers();
 
 if ( is_array( get_site_option( 'illegal_names' ) ) && isset( $_GET['new'] ) && in_array( $_GET['new'], get_site_option( 'illegal_names' ), true ) ) {
 	wp_redirect( network_home_url() );
-	die();
+	exit(0);;
 }
 
 /**
@@ -31,12 +31,12 @@ add_action( 'wp_head', 'do_signup_header' );
 
 if ( ! is_multisite() ) {
 	wp_redirect( wp_registration_url() );
-	die();
+	exit(0);;
 }
 
 if ( ! is_main_site() ) {
 	wp_redirect( network_site_url( 'wp-signup.php' ) );
-	die();
+	exit(0);;
 }
 
 // Fix for page title.
@@ -432,7 +432,7 @@ function validate_another_blog_signup() {
 	global $blogname, $blog_title, $errors, $domain, $path;
 	$current_user = wp_get_current_user();
 	if ( ! is_user_logged_in() ) {
-		die();
+		exit(0);;
 	}
 
 	$result = validate_blog_form();

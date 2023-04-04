@@ -37,7 +37,7 @@ switch ( $action ) {
 		// For each link id (in $linkcheck[]) change category to selected value.
 		if ( count( $linkcheck ) === 0 ) {
 			wp_redirect( $this_file );
-			exit;
+			exit(0);
 		}
 
 		$deleted = 0;
@@ -50,7 +50,7 @@ switch ( $action ) {
 		}
 
 		wp_redirect( "$this_file?deleted=$deleted" );
-		exit;
+		exit(0);
 
 	case 'move':
 		check_admin_referer( 'bulk-bookmarks' );
@@ -58,7 +58,7 @@ switch ( $action ) {
 		// For each link id (in $linkcheck[]) change category to selected value.
 		if ( count( $linkcheck ) === 0 ) {
 			wp_redirect( $this_file );
-			exit;
+			exit(0);
 		}
 		$all_links = implode( ',', $linkcheck );
 		/*
@@ -67,7 +67,7 @@ switch ( $action ) {
 		 */
 
 		wp_redirect( $this_file );
-		exit;
+		exit(0);
 
 	case 'add':
 		check_admin_referer( 'add-bookmark' );
@@ -78,7 +78,7 @@ switch ( $action ) {
 		}
 
 		wp_redirect( $redir );
-		exit;
+		exit(0);
 
 	case 'save':
 		$link_id = (int) $_POST['link_id'];
@@ -87,7 +87,7 @@ switch ( $action ) {
 		edit_link( $link_id );
 
 		wp_redirect( $this_file );
-		exit;
+		exit(0);
 
 	case 'delete':
 		$link_id = (int) $_GET['link_id'];
@@ -96,7 +96,7 @@ switch ( $action ) {
 		wp_delete_link( $link_id );
 
 		wp_redirect( $this_file );
-		exit;
+		exit(0);
 
 	case 'edit':
 		wp_enqueue_script( 'link' );

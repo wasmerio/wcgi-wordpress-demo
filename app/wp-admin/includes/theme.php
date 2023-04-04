@@ -38,7 +38,7 @@ function delete_theme( $stylesheet, $redirect = '' ) {
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data;
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-			exit;
+			exit(0);
 		}
 		return;
 	}
@@ -53,7 +53,7 @@ function delete_theme( $stylesheet, $redirect = '' ) {
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data;
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-			exit;
+			exit(0);
 		}
 		return;
 	}

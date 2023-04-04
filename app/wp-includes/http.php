@@ -497,14 +497,14 @@ function send_origin_headers() {
 		header( 'Access-Control-Allow-Origin: ' . $origin );
 		header( 'Access-Control-Allow-Credentials: true' );
 		if ( 'OPTIONS' === $_SERVER['REQUEST_METHOD'] ) {
-			exit;
+			exit(0);
 		}
 		return $origin;
 	}
 
 	if ( 'OPTIONS' === $_SERVER['REQUEST_METHOD'] ) {
 		status_header( 403 );
-		exit;
+		exit(0);
 	}
 
 	return false;

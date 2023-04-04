@@ -268,5 +268,5 @@ function install_theme_information() {
 	}
 	$wp_list_table->theme_installer_single( $theme );
 	iframe_footer();
-	exit;
+	exit(0);
 }

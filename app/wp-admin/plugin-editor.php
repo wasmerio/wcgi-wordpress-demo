@@ -11,7 +11,7 @@ require_once __DIR__ . '/admin.php';
 
 if ( is_multisite() && ! is_network_admin() ) {
 	wp_redirect( network_admin_url( 'plugin-editor.php' ) );
-	exit;
+	exit(0);
 }
 
 if ( ! current_user_can( 'edit_plugins' ) ) {
@@ -33,7 +33,7 @@ if ( empty( $plugins ) ) {
 	</div>
 	<?php
 	require_once ABSPATH . 'wp-admin/admin-footer.php';
-	exit;
+	exit(0);
 }
 
 $file   = '';
@@ -99,7 +99,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 				admin_url( 'plugin-editor.php' )
 			)
 		);
-		exit;
+		exit(0);
 	}
 }
 

@@ -24,7 +24,7 @@ if ( ! in_array( $typenow, get_post_types( array( 'show_ui' => true ) ), true ) 
 
 if ( 'attachment' === $typenow ) {
 	if ( wp_redirect( admin_url( 'upload.php' ) ) ) {
-		exit;
+		exit(0);
 	}
 }
 
@@ -56,7 +56,7 @@ $pagenum       = $wp_list_table->get_pagenum();
 foreach ( array( 'p', 'attachment_id', 'page_id' ) as $_redirect ) {
 	if ( ! empty( $_REQUEST[ $_redirect ] ) ) {
 		wp_redirect( admin_url( 'edit-comments.php?p=' . absint( $_REQUEST[ $_redirect ] ) ) );
-		exit;
+		exit(0);
 	}
 }
 unset( $_redirect );
@@ -110,7 +110,7 @@ if ( $doaction ) {
 
 	if ( empty( $post_ids ) ) {
 		wp_redirect( $sendback );
-		exit;
+		exit(0);
 	}
 
 	switch ( $doaction ) {
@@ -226,10 +226,10 @@ if ( $doaction ) {
 	$sendback = remove_query_arg( array( 'action', 'action2', 'tags_input', 'post_author', 'comment_status', 'ping_status', '_status', 'post', 'bulk_edit', 'post_view' ), $sendback );
 
 	wp_redirect( $sendback );
-	exit;
+	exit(0);
 } elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
 	wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-	exit;
+	exit(0);
 }
 
 $wp_list_table->prepare_items();

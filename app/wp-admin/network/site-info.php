@@ -112,7 +112,7 @@ if ( isset( $_REQUEST['action'] ) && 'update-site' === $_REQUEST['action'] ) {
 			'site-info.php'
 		)
 	);
-	exit;
+	exit(0);
 }
 
 if ( isset( $_GET['update'] ) ) {

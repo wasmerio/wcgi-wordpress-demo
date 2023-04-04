@@ -54,7 +54,7 @@
 /////////////////////////////////////////////////////////////////
 
 if (!defined('GETID3_INCLUDEPATH')) { // prevent path-exposing attacks that access modules directly on public webservers
-	exit;
+	exit(0);
 }
 
 define('GETID3_FLV_TAG_AUDIO',          8);

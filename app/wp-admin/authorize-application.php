@@ -58,7 +58,7 @@ if ( isset( $_POST['action'] ) && 'authorize_application_password' === $_POST['a
 	if ( $redirect ) {
 		// Explicitly not using wp_safe_redirect b/c sends to arbitrary domain.
 		wp_redirect( $redirect );
-		exit;
+		exit(0);
 	}
 }
 

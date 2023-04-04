@@ -72,7 +72,7 @@ if ( isset( $_REQUEST['action'] ) && 'add-user' === $_REQUEST['action'] ) {
 					'user-new.php'
 				)
 			);
-			exit;
+			exit(0);
 		}
 	}
 }

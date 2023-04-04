@@ -30,7 +30,7 @@ $redirect_network_admin_request = apply_filters( 'redirect_network_admin_request
 
 if ( $redirect_network_admin_request ) {
 	wp_redirect( network_admin_url() );
-	exit;
+	exit(0);
 }
 
 unset( $redirect_network_admin_request );

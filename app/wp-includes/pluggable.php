@@ -1193,10 +1193,10 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		if ( $secure && ! is_ssl() && false !== strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) ) {
 			if ( 0 === strpos( $_SERVER['REQUEST_URI'], 'http' ) ) {
 				wp_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
-				exit;
+				exit(0);
 			} else {
 				wp_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-				exit;
+				exit(0);
 			}
 		}
 
@@ -1226,10 +1226,10 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 			if ( ! $secure && get_user_option( 'use_ssl', $user_id ) && false !== strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) ) {
 				if ( 0 === strpos( $_SERVER['REQUEST_URI'], 'http' ) ) {
 					wp_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
-					exit;
+					exit(0);
 				} else {
 					wp_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-					exit;
+					exit(0);
 				}
 			}
 
@@ -1244,7 +1244,7 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		$login_url = wp_login_url( $redirect, true );
 
 		wp_redirect( $login_url );
-		exit;
+		exit(0);
 	}
 endif;
 
@@ -1289,7 +1289,7 @@ if ( ! function_exists( 'check_admin_referer' ) ) :
 
 		if ( ! $result && ! ( -1 === $action && strpos( $referer, $adminurl ) === 0 ) ) {
 			wp_nonce_ays( $action );
-			die();
+			exit(0);;
 		}
 
 		return $result;
@@ -1357,21 +1357,21 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 	 * Redirects to another page.
 	 *
 	 * Note: wp_redirect() does not exit automatically, and should almost always be
-	 * followed by a call to `exit;`:
+	 * followed by a call to `exit(0);`:
 	 *
 	 *     wp_redirect( $url );
-	 *     exit;
+	 *     exit(0);
 	 *
 	 * Exiting can also be selectively manipulated by using wp_redirect() as a conditional
 	 * in conjunction with the {@see 'wp_redirect'} and {@see 'wp_redirect_status'} filters:
 	 *
 	 *     if ( wp_redirect( $url ) ) {
-	 *         exit;
+	 *         exit(0);
 	 *     }
 	 *
 	 * @since 1.5.1
 	 * @since 5.1.0 The `$x_redirect_by` parameter was added.
-	 * @since 5.4.0 On invalid status codes, wp_die() is called.
+	 * @since 5.4.0 On invalid status codes, wp_exit(0); is called.
 	 *
 	 * @global bool $is_IIS
 	 *
@@ -1504,16 +1504,16 @@ if ( ! function_exists( 'wp_safe_redirect' ) ) :
 	 * but only used in a few places.
 	 *
 	 * Note: wp_safe_redirect() does not exit automatically, and should almost always be
-	 * followed by a call to `exit;`:
+	 * followed by a call to `exit(0);`:
 	 *
 	 *     wp_safe_redirect( $url );
-	 *     exit;
+	 *     exit(0);
 	 *
 	 * Exiting can also be selectively manipulated by using wp_safe_redirect() as a conditional
 	 * in conjunction with the {@see 'wp_redirect'} and {@see 'wp_redirect_status'} filters:
 	 *
 	 *     if ( wp_safe_redirect( $url ) ) {
-	 *         exit;
+	 *         exit(0);
 	 *     }
 	 *
 	 * @since 2.3.0

@@ -40,7 +40,7 @@ switch ( $action ) {
 				$location = add_query_arg( 'message', 'updated', $location );
 			}
 			wp_redirect( $location );
-			exit;
+			exit(0);
 		}
 
 		// No break.
@@ -54,7 +54,7 @@ switch ( $action ) {
 
 		if ( empty( $_GET['attachment_id'] ) ) {
 			wp_redirect( admin_url( 'upload.php' ) );
-			exit;
+			exit(0);
 		}
 		$att_id = (int) $_GET['attachment_id'];
 
@@ -169,10 +169,10 @@ switch ( $action ) {
 
 		require_once ABSPATH . 'wp-admin/admin-footer.php';
 
-		exit;
+		exit(0);
 
 	default:
 		wp_redirect( admin_url( 'upload.php' ) );
-		exit;
+		exit(0);
 
 }

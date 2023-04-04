@@ -480,7 +480,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 					$redirect_url = get_feed_link( $old_feed_files[ basename( $redirect['path'] ) ] );
 
 					wp_redirect( $redirect_url, 301 );
-					die();
+					exit(0);;
 				}
 			}
 
@@ -539,7 +539,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 			}
 
 			wp_redirect( $redirect_url, 301 );
-			die();
+			exit(0);;
 		}
 	}
 
@@ -799,7 +799,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 		// Protect against chained redirects.
 		if ( ! redirect_canonical( $redirect_url, false ) ) {
 			wp_redirect( $redirect_url, 301 );
-			exit;
+			exit(0);
 		} else {
 			// Debug.
 			// die("1: $redirect_url<br />2: " . redirect_canonical( $redirect_url, false ) );
@@ -1006,7 +1006,7 @@ function wp_redirect_admin_locations() {
 
 	if ( in_array( untrailingslashit( $_SERVER['REQUEST_URI'] ), $admins, true ) ) {
 		wp_redirect( admin_url() );
-		exit;
+		exit(0);
 	}
 
 	$logins = array(
@@ -1017,6 +1017,6 @@ function wp_redirect_admin_locations() {
 
 	if ( in_array( untrailingslashit( $_SERVER['REQUEST_URI'] ), $logins, true ) ) {
 		wp_redirect( wp_login_url() );
-		exit;
+		exit(0);
 	}
 }

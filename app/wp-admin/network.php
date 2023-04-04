@@ -22,7 +22,7 @@ if ( ! current_user_can( 'setup_network' ) ) {
 if ( is_multisite() ) {
 	if ( ! is_network_admin() ) {
 		wp_redirect( network_admin_url( 'setup.php' ) );
-		exit;
+		exit(0);
 	}
 
 	if ( ! defined( 'MULTISITE' ) ) {

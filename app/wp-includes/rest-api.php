@@ -410,7 +410,7 @@ function rest_api_loaded() {
 	$server->serve_request( $route );
 
 	// We're done.
-	die();
+	exit(0);;
 }
 
 /**

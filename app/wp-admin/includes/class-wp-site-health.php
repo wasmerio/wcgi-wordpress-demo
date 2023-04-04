@@ -238,7 +238,7 @@ class WP_Site_Health {
 
 		echo ( has_filter( 'wp_version_check', 'wp_version_check' ) ? 'yes' : 'no' );
 
-		die();
+		exit(0);;
 	}
 
 	/**

@@ -2061,7 +2061,7 @@ class wpdb {
 			// Load custom DB error template, if present.
 			if ( file_exists( WP_CONTENT_DIR . '/db-error.php' ) ) {
 				require_once WP_CONTENT_DIR . '/db-error.php';
-				die();
+				exit(0);;
 			}
 
 			$message = '<h1>' . __( 'Error establishing a database connection' ) . "</h1>\n";
@@ -2214,7 +2214,7 @@ class wpdb {
 			sleep( 1 );
 		}
 
-		// If template_redirect has already happened, it's too late for wp_die()/dead_db().
+		// If template_redirect has already happened, it's too late for wp_exit(0);/dead_db().
 		// Let's just return and hope for the best.
 		if ( did_action( 'template_redirect' ) ) {
 			return false;

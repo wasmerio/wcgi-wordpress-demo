@@ -652,7 +652,7 @@ function sanitize_comment_cookies() {
  *
  * @param array $commentdata Contains information on the comment.
  * @param bool  $wp_error    When true, a disallowed comment will result in the function
- *                           returning a WP_Error object, rather than executing wp_die().
+ *                           returning a WP_Error object, rather than executing wp_exit(0);.
  *                           Default false.
  * @return int|string|WP_Error Allowed comments return the approval status (0|1|'spam'|'trash').
  *                             If `$wp_error` is true, disallowed comments return a WP_Error.
@@ -736,7 +736,7 @@ function wp_allow_comment( $commentdata, $wp_error = false ) {
 	 * @param string $comment_author_email Comment author's email.
 	 * @param string $comment_date_gmt     GMT date the comment was posted.
 	 * @param bool   $wp_error             Whether to return a WP_Error object instead of executing
-	 *                                     wp_die() or die() if a comment flood is occurring.
+	 *                                     wp_exit(0); or exit(0); if a comment flood is occurring.
 	 */
 	do_action(
 		'check_comment_flood',
@@ -759,7 +759,7 @@ function wp_allow_comment( $commentdata, $wp_error = false ) {
 	 * @param string $comment_author_email Comment author's email.
 	 * @param string $comment_date_gmt     GMT date the comment was posted.
 	 * @param bool   $wp_error             Whether to return a WP_Error object instead of executing
-	 *                                     wp_die() or die() if a comment flood is occurring.
+	 *                                     wp_exit(0); or exit(0); if a comment flood is occurring.
 	 */
 	$is_flood = apply_filters(
 		'wp_is_comment_flood',
@@ -861,7 +861,7 @@ function check_comment_flood_db() {
  * @param string $email     Comment author's email address.
  * @param string $date      MySQL time string.
  * @param bool   $avoid_die When true, a disallowed comment will result in the function
- *                          returning without executing wp_die() or die(). Default false.
+ *                          returning without executing wp_exit(0); or exit(0);. Default false.
  * @return bool Whether comment flooding is occurring.
  */
 function wp_check_comment_flood( $is_flood, $ip, $email, $date, $avoid_die = false ) {
@@ -2210,7 +2210,7 @@ function wp_throttle_comment_flood( $block, $time_lastcomment, $time_newcomment 
  *                                        'REMOTE_ADDR' in the `$_SERVER` superglobal sent in the original request.
  * }
  * @param bool  $wp_error Should errors be returned as WP_Error objects instead of
- *                        executing wp_die()? Default false.
+ *                        executing wp_exit(0);? Default false.
  * @return int|false|WP_Error The ID of the comment on success, false or WP_Error on failure.
  */
 function wp_new_comment( $commentdata, $wp_error = false ) {

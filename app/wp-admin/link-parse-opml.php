@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	die();
+	exit(0);;
 }
 
 /**

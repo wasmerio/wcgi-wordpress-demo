@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit();
+	exit(0);
 }
 
 _deprecated_file( basename( __FILE__ ), '2.1.0', WPINC . '/rss.php' );

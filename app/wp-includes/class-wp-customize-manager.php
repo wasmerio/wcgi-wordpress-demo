@@ -477,7 +477,7 @@ final class WP_Customize_Manager {
 	}
 
 	/**
-	 * Returns the Ajax wp_die() handler if it's a customized request.
+	 * Returns the Ajax wp_exit(0); handler if it's a customized request.
 	 *
 	 * @since 3.4.0
 	 * @deprecated 4.7.0
@@ -655,7 +655,7 @@ final class WP_Customize_Manager {
 		$doing_ajax_or_is_customized = ( $this->doing_ajax() || isset( $_POST['customized'] ) );
 		if ( ! $doing_ajax_or_is_customized && ! validate_current_theme() ) {
 			wp_redirect( 'themes.php?broken=true' );
-			exit;
+			exit(0);
 		}
 	}
 

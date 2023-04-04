@@ -69,13 +69,13 @@ if ( ! empty( $_GET['adminhash'] ) ) {
 	}
 
 	wp_redirect( admin_url( $redirect ) );
-	exit;
+	exit(0);
 } elseif ( ! empty( $_GET['dismiss'] ) && 'new_admin_email' === $_GET['dismiss'] ) {
 	check_admin_referer( 'dismiss-' . get_current_blog_id() . '-new_admin_email' );
 	delete_option( 'adminhash' );
 	delete_option( 'new_admin_email' );
 	wp_redirect( admin_url( 'options-general.php?updated=true' ) );
-	exit;
+	exit(0);
 }
 
 if ( is_multisite() && ! current_user_can( 'manage_network_options' ) && 'update' !== $action ) {
@@ -350,7 +350,7 @@ if ( 'update' === $action ) { // We are saving settings sent from a settings pag
 	// Redirect back to the settings page that was submitted.
 	$goback = add_query_arg( 'settings-updated', 'true', wp_get_referer() );
 	wp_redirect( $goback );
-	exit;
+	exit(0);
 }
 
 require_once ABSPATH . 'wp-admin/admin-header.php';

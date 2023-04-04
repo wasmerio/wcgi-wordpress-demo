@@ -83,11 +83,11 @@ if ( !function_exists( 'graceful_fail' ) ) :
  * Deprecated functionality to gracefully fail.
  *
  * @since MU (3.0.0)
- * @deprecated 3.0.0 Use wp_die()
- * @see wp_die()
+ * @deprecated 3.0.0 Use wp_exit(0);
+ * @see wp_exit(0);
  */
 function graceful_fail( $message ) {
-	_deprecated_function( __FUNCTION__, '3.0.0', 'wp_die()' );
+	_deprecated_function( __FUNCTION__, '3.0.0', 'wp_exit(0);' );
 	$message = apply_filters( 'graceful_fail', $message );
 	$message_template = apply_filters( 'graceful_fail_template',
 '<!DOCTYPE html>
@@ -284,11 +284,11 @@ function wpmu_admin_do_redirect( $url = '' ) {
 	if ( $ref ) {
 		$ref = wpmu_admin_redirect_add_updated_param( $ref );
 		wp_redirect( $ref );
-		exit;
+		exit(0);
 	}
 	if ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
 		wp_redirect( $_SERVER['HTTP_REFERER'] );
-		exit;
+		exit(0);
 	}
 
 	$url = wpmu_admin_redirect_add_updated_param( $url );
@@ -301,7 +301,7 @@ function wpmu_admin_do_redirect( $url = '' ) {
 		$url = wpmu_admin_redirect_add_updated_param( $_POST['redirect'] );
 	}
 	wp_redirect( $url );
-	exit;
+	exit(0);
 }
 
 /**

@@ -627,7 +627,7 @@ if ( is_multisite() ) {
 	$file = ms_site_check();
 	if ( true !== $file ) {
 		require $file;
-		die();
+		exit(0);;
 	}
 	unset( $file );
 }

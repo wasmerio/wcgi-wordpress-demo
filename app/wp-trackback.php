@@ -36,7 +36,7 @@ function trackback_response( $error = 0, $error_message = '' ) {
 		echo "<error>1</error>\n";
 		echo "<message>$error_message</message>\n";
 		echo '</response>';
-		die();
+		exit(0);;
 	} else {
 		echo '<?xml version="1.0" encoding="utf-8"?' . ">\n";
 		echo "<response>\n";
@@ -66,7 +66,7 @@ if ( $charset ) {
 
 // No valid uses for UTF-7.
 if ( false !== strpos( $charset, 'UTF-7' ) ) {
-	die;
+	exit(0);
 }
 
 // For international trackbacks.
@@ -92,7 +92,7 @@ if ( ! isset( $post_id ) || ! (int) $post_id ) {
 if ( empty( $title ) && empty( $trackback_url ) && empty( $blog_name ) ) {
 	// If it doesn't look like a trackback at all.
 	wp_redirect( get_permalink( $post_id ) );
-	exit;
+	exit(0);
 }
 
 if ( ! empty( $trackback_url ) && ! empty( $title ) ) {

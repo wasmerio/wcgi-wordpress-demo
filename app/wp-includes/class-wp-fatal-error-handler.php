@@ -159,7 +159,7 @@ class WP_Fatal_Error_Handler {
 	 *
 	 * This method is called conditionally if no 'php-error.php' drop-in is available.
 	 *
-	 * It calls {@see wp_die()} with a message indicating that the site is experiencing technical difficulties and a
+	 * It calls {@see wp_exit(0);} with a message indicating that the site is experiencing technical difficulties and a
 	 * login link to the admin backend. The {@see 'wp_php_error_message'} and {@see 'wp_php_error_args'} filters can
 	 * be used to modify these parameters.
 	 *
@@ -218,11 +218,11 @@ class WP_Fatal_Error_Handler {
 		$message = apply_filters( 'wp_php_error_message', $message, $error );
 
 		/**
-		 * Filters the arguments passed to {@see wp_die()} for the default PHP error template.
+		 * Filters the arguments passed to {@see wp_exit(0);} for the default PHP error template.
 		 *
 		 * @since 5.2.0
 		 *
-		 * @param array $args Associative array of arguments passed to `wp_die()`. By default these contain a
+		 * @param array $args Associative array of arguments passed to `wp_exit(0);`. By default these contain a
 		 *                    'response' key, and optionally 'link_url' and 'link_text' keys.
 		 * @param array $error Error information retrieved from `error_get_last()`.
 		 */

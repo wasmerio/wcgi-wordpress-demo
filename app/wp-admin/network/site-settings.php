@@ -69,7 +69,7 @@ if ( isset( $_REQUEST['action'] ) && 'update-site' === $_REQUEST['action'] && is
 			'site-settings.php'
 		)
 	);
-	exit;
+	exit(0);
 }
 
 if ( isset( $_GET['update'] ) ) {

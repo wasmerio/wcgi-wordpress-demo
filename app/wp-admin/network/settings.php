@@ -32,13 +32,13 @@ if ( ! empty( $_GET['network_admin_hash'] ) ) {
 		$redirect = 'settings.php?updated=true';
 	}
 	wp_redirect( network_admin_url( $redirect ) );
-	exit;
+	exit(0);
 } elseif ( ! empty( $_GET['dismiss'] ) && 'new_network_admin_email' === $_GET['dismiss'] ) {
 	check_admin_referer( 'dismiss_new_network_admin_email' );
 	delete_site_option( 'network_admin_hash' );
 	delete_site_option( 'new_admin_email' );
 	wp_redirect( network_admin_url( 'settings.php?updated=true' ) );
-	exit;
+	exit(0);
 }
 
 add_action( 'admin_head', 'network_settings_add_js' );
@@ -132,7 +132,7 @@ if ( $_POST ) {
 	do_action( 'update_wpmu_options' );
 
 	wp_redirect( add_query_arg( 'updated', 'true', network_admin_url( 'settings.php' ) ) );
-	exit;
+	exit(0);
 }
 
 require_once ABSPATH . 'wp-admin/admin-header.php';

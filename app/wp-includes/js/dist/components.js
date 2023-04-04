@@ -14692,7 +14692,7 @@ function createProjectionNode({ attachResizeListener, defaultParent, measureScro
                         ? (_c = (_b = valuesToRender.opacity) !== null && _b !== void 0 ? _b : this.latestValues.opacity) !== null && _c !== void 0 ? _c : 1
                         : this.preserveOpacity
                             ? this.latestValues.opacity
-                            : valuesToRender.opacityExit;
+                            : valuesToRender.opacityexit(0);
             }
             else {
                 /**
