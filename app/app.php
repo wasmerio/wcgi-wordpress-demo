@@ -150,13 +150,13 @@ if (SERVE_STATIC && is_file($requestedAbsoluteFile)) {
         header("Last-Modified: " . gmdate("D, d M Y H:i:s", $last_modified_time) . " GMT");
         header("Etag: $etag");
 
-        // if (
-        //     @strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $last_modified_time ||
-        //     trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag
-        // ) {
-        //     header("HTTP/1.1 304 Not Modified");
-        //     exit;
-        // }
+        if (
+            @strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $last_modified_time ||
+            trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag
+        ) {
+            header("HTTP/1.1 304 Not Modified");
+            exit;
+        }
 
         $fh = fopen($requestedAbsoluteFile, 'r');
         fpassthru($fh);
@@ -181,6 +181,8 @@ if (SERVE_STATIC && is_file($requestedAbsoluteFile)) {
             ob_end_flush();
         }
     } else {
-        require __DIR__ . '/index.php';
+        if (!preg_match('/\.(css|txt|js|png|jpg|jpeg|json|htm|html|csv)$/', $requestedAbsoluteFile)) {
+            require __DIR__ . '/index.php';
+        }
     }
 }
