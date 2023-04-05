@@ -11,11 +11,8 @@ require_once __DIR__ . '/admin.php';
 
 /** Load WordPress dashboard API */
 require_once ABSPATH . 'wp-admin/includes/dashboard.php';
-
 wp_dashboard_setup();
-
 wp_enqueue_script( 'dashboard' );
-
 if ( current_user_can( 'install_plugins' ) ) {
 	wp_enqueue_script( 'plugin-install' );
 	wp_enqueue_script( 'updates' );
@@ -129,8 +126,8 @@ if ( ! $is_dev_version ) {
 
 $screen->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/article/dashboard-screen/">Documentation on Dashboard</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/dashboard-screen/">Documentation on Dashboard</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>' .
 	'<p>' . $wp_version_text . '</p>'
 );
 

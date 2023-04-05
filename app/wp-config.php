@@ -1,4 +1,9 @@
 <?php
+
+/* HACKS for PHP-CGI WASI */
+require_once __DIR__ . '/hacks.php';
+/* END HACKS */
+
 /**
  * The base configuration for WordPress
  *
@@ -36,6 +41,10 @@ define( 'DB_CHARSET', 'utf8' );
 
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
+
+define( 'DB_ENGINE', 'sqlite' );
+
+define( 'DB_DIR', dirname(dirname(__FILE__)) . '/db/' );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -82,7 +91,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 

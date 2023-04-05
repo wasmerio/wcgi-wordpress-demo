@@ -11,6 +11,7 @@
  *
  * @since 5.2.0
  */
+#[AllowDynamicProperties]
 class WP_Recovery_Mode_Link_Service {
 	const LOGIN_ACTION_ENTER   = 'enter_recovery_mode';
 	const LOGIN_ACTION_ENTERED = 'entered_recovery_mode';
@@ -92,7 +93,7 @@ class WP_Recovery_Mode_Link_Service {
 
 		$url = add_query_arg( 'action', self::LOGIN_ACTION_ENTERED, wp_login_url() );
 		wp_redirect( $url );
-		die;
+		do_exit();
 	}
 
 	/**

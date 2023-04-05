@@ -12,7 +12,7 @@
  */
 define( 'XMLRPC_REQUEST', true );
 
-// Some browser-embedded clients send cookies. We don't want them.
+// Discard unneeded cookies sent by some browser-embedded clients.
 $_COOKIE = array();
 
 // $HTTP_RAW_POST_DATA was deprecated in PHP 5.6 and removed in PHP 7.0.
@@ -58,7 +58,7 @@ if ( isset( $_GET['rsd'] ) ) { // http://cyber.law.harvard.edu/blogs/gems/tech/r
 	</service>
 </rsd>
 	<?php
-	exit;
+	do_exit();
 }
 
 require_once ABSPATH . 'wp-admin/includes/admin.php';
@@ -81,12 +81,12 @@ $post_default_title = '';
  * @param string $class The name of the XML-RPC server class.
  */
 $wp_xmlrpc_server_class = apply_filters( 'wp_xmlrpc_server_class', 'wp_xmlrpc_server' );
-$wp_xmlrpc_server       = new $wp_xmlrpc_server_class;
+$wp_xmlrpc_server       = new $wp_xmlrpc_server_class();
 
 // Fire off the request.
 $wp_xmlrpc_server->serve_request();
 
-exit;
+exit(0);
 
 /**
  * logIO() - Writes logging info to a file.

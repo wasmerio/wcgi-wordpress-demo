@@ -77,7 +77,7 @@ if ( ! isset( $current_site ) || ! isset( $current_blog ) ) {
 		ms_not_installed( $domain, $path );
 	} else {
 		header( 'Location: ' . $bootstrap_result );
-		exit;
+		do_exit();
 	}
 	unset( $bootstrap_result );
 

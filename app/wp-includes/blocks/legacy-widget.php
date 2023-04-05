@@ -34,7 +34,7 @@ function render_block_core_legacy_widget( $attributes ) {
 
 	if ( isset( $attributes['instance']['encoded'], $attributes['instance']['hash'] ) ) {
 		$serialized_instance = base64_decode( $attributes['instance']['encoded'] );
-		if ( wp_hash( $serialized_instance ) !== $attributes['instance']['hash'] ) {
+		if ( ! hash_equals( wp_hash( $serialized_instance ), (string) $attributes['instance']['hash'] ) ) {
 			return '';
 		}
 		$instance = unserialize( $serialized_instance );
@@ -140,7 +140,7 @@ function handle_legacy_widget_preview_iframe() {
 	</html>
 	<?php
 
-	exit;
+	do_exit();
 }
 
 // Use admin_init instead of init to ensure get_current_screen function is already available.

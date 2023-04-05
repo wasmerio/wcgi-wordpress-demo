@@ -60,6 +60,12 @@ if ( is_multisite() ) {
 	$help .= '<li>' . __( '<strong>Delete</strong> brings you to the Delete Users screen for confirmation, where you can permanently remove a user from your site and delete their content. You can also delete multiple users at once by using bulk actions.' ) . '</li>';
 }
 
+$help .= '<li>' . __( '<strong>View</strong> takes you to a public author archive which lists all the posts published by the user.' ) . '</li>';
+
+if ( current_user_can( 'edit_users' ) ) {
+	$help .= '<li>' . __( '<strong>Send password reset</strong> sends the user an email with a link to set a new password.' ) . '</li>';
+}
+
 $help .= '</ul>';
 
 get_current_screen()->add_help_tab(
@@ -73,9 +79,9 @@ unset( $help );
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/article/users-screen/">Documentation on Managing Users</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/article/roles-and-capabilities/">Descriptions of Roles and Capabilities</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/users-screen/">Documentation on Managing Users</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/roles-and-capabilities/">Descriptions of Roles and Capabilities</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content(
@@ -110,7 +116,7 @@ switch ( $wp_list_table->current_action() ) {
 
 		if ( empty( $_REQUEST['users'] ) ) {
 			wp_redirect( $redirect );
-			exit;
+			do_exit();
 		}
 
 		$editable_roles = get_editable_roles();
@@ -159,7 +165,7 @@ switch ( $wp_list_table->current_action() ) {
 		}
 
 		wp_redirect( add_query_arg( 'update', $update, $redirect ) );
-		exit;
+		do_exit();
 
 	case 'dodelete':
 		if ( is_multisite() ) {
@@ -170,7 +176,7 @@ switch ( $wp_list_table->current_action() ) {
 
 		if ( empty( $_REQUEST['users'] ) ) {
 			wp_redirect( $redirect );
-			exit;
+			do_exit();
 		}
 
 		$userids = array_map( 'intval', (array) $_REQUEST['users'] );
@@ -179,7 +185,7 @@ switch ( $wp_list_table->current_action() ) {
 			$url = self_admin_url( 'users.php?action=delete&users[]=' . implode( '&users[]=', $userids ) . '&error=true' );
 			$url = str_replace( '&amp;', '&', wp_nonce_url( $url, 'bulk-users' ) );
 			wp_redirect( $url );
-			exit;
+			do_exit();
 		}
 
 		if ( ! current_user_can( 'delete_users' ) ) {
@@ -217,7 +223,7 @@ switch ( $wp_list_table->current_action() ) {
 			$redirect
 		);
 		wp_redirect( $redirect );
-		exit;
+		do_exit();
 
 	case 'resetpassword':
 		check_admin_referer( 'bulk-users' );
@@ -226,7 +232,7 @@ switch ( $wp_list_table->current_action() ) {
 		}
 		if ( empty( $_REQUEST['users'] ) ) {
 			wp_redirect( $redirect );
-			exit();
+			do_exit();
 		}
 		$userids = array_map( 'intval', (array) $_REQUEST['users'] );
 
@@ -257,7 +263,7 @@ switch ( $wp_list_table->current_action() ) {
 			$redirect
 		);
 		wp_redirect( $redirect );
-		exit;
+		do_exit();
 
 	case 'delete':
 		if ( is_multisite() ) {
@@ -268,7 +274,7 @@ switch ( $wp_list_table->current_action() ) {
 
 		if ( empty( $_REQUEST['users'] ) && empty( $_REQUEST['user'] ) ) {
 			wp_redirect( $redirect );
-			exit;
+			do_exit();
 		}
 
 		if ( ! current_user_can( 'delete_users' ) ) {
@@ -407,7 +413,7 @@ switch ( $wp_list_table->current_action() ) {
 
 		if ( empty( $_REQUEST['users'] ) ) {
 			wp_redirect( $redirect );
-			exit;
+			do_exit();
 		}
 
 		if ( ! current_user_can( 'remove_users' ) ) {
@@ -428,7 +434,7 @@ switch ( $wp_list_table->current_action() ) {
 
 		$redirect = add_query_arg( array( 'update' => $update ), $redirect );
 		wp_redirect( $redirect );
-		exit;
+		do_exit();
 
 	case 'remove':
 		check_admin_referer( 'bulk-users' );
@@ -439,7 +445,7 @@ switch ( $wp_list_table->current_action() ) {
 
 		if ( empty( $_REQUEST['users'] ) && empty( $_REQUEST['user'] ) ) {
 			wp_redirect( $redirect );
-			exit;
+			do_exit();
 		}
 
 		if ( ! current_user_can( 'remove_users' ) ) {
@@ -499,7 +505,7 @@ switch ( $wp_list_table->current_action() ) {
 	default:
 		if ( ! empty( $_GET['_wp_http_referer'] ) ) {
 			wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-			exit;
+			do_exit();
 		}
 
 		if ( $wp_list_table->current_action() && ! empty( $_REQUEST['users'] ) ) {
@@ -511,14 +517,14 @@ switch ( $wp_list_table->current_action() ) {
 			$sendback = apply_filters( "handle_bulk_actions-{$screen}", $sendback, $wp_list_table->current_action(), $userids ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 			wp_safe_redirect( $sendback );
-			exit;
+			do_exit();
 		}
 
 		$wp_list_table->prepare_items();
 		$total_pages = $wp_list_table->get_pagination_arg( 'total_pages' );
 		if ( $pagenum > $total_pages && $total_pages > 0 ) {
 			wp_redirect( add_query_arg( 'paged', $total_pages ) );
-			exit;
+			do_exit();
 		}
 
 		require_once ABSPATH . 'wp-admin/admin-header.php';

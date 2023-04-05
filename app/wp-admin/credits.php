@@ -37,16 +37,16 @@ $credits = wp_credits();
 			);
 			?>
 		</div>
-
-		<nav class="about__header-navigation nav-tab-wrapper wp-clearfix" aria-label="<?php esc_attr_e( 'Secondary menu' ); ?>">
-			<a href="about.php" class="nav-tab"><?php _e( 'What&#8217;s New' ); ?></a>
-			<a href="credits.php" class="nav-tab nav-tab-active" aria-current="page"><?php _e( 'Credits' ); ?></a>
-			<a href="freedoms.php" class="nav-tab"><?php _e( 'Freedoms' ); ?></a>
-			<a href="privacy.php" class="nav-tab"><?php _e( 'Privacy' ); ?></a>
-		</nav>
 	</div>
 
-	<div class="about__section has-1-column">
+	<nav class="about__header-navigation nav-tab-wrapper wp-clearfix" aria-label="<?php esc_attr_e( 'Secondary menu' ); ?>">
+		<a href="about.php" class="nav-tab"><?php _e( 'What&#8217;s New' ); ?></a>
+		<a href="credits.php" class="nav-tab nav-tab-active" aria-current="page"><?php _e( 'Credits' ); ?></a>
+		<a href="freedoms.php" class="nav-tab"><?php _e( 'Freedoms' ); ?></a>
+		<a href="privacy.php" class="nav-tab"><?php _e( 'Privacy' ); ?></a>
+	</nav>
+
+	<div class="about__section has-1-column has-gutters">
 		<div class="column aligncenter">
 			<?php if ( ! $credits ) : ?>
 
@@ -78,11 +78,11 @@ $credits = wp_credits();
 if ( ! $credits ) {
 	echo '</div>';
 	require_once ABSPATH . 'wp-admin/admin-footer.php';
-	exit;
+	do_exit();
 }
 ?>
 
-	<hr />
+	<hr class="is-large" />
 
 	<div class="about__section">
 		<div class="column is-edge-to-edge">

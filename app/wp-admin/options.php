@@ -69,13 +69,13 @@ if ( ! empty( $_GET['adminhash'] ) ) {
 	}
 
 	wp_redirect( admin_url( $redirect ) );
-	exit;
+	do_exit();
 } elseif ( ! empty( $_GET['dismiss'] ) && 'new_admin_email' === $_GET['dismiss'] ) {
 	check_admin_referer( 'dismiss-' . get_current_blog_id() . '-new_admin_email' );
 	delete_option( 'adminhash' );
 	delete_option( 'new_admin_email' );
 	wp_redirect( admin_url( 'options-general.php?updated=true' ) );
-	exit;
+	do_exit();
 }
 
 if ( is_multisite() && ! current_user_can( 'manage_network_options' ) && 'update' !== $action ) {
@@ -245,7 +245,7 @@ if ( 'update' === $action ) { // We are saving settings sent from a settings pag
 		wp_die(
 			sprintf(
 				/* translators: %s: The options page name. */
-				__( '<strong>Error</strong>: Options page %s not found in the allowed options list.' ),
+				__( '<strong>Error:</strong> The %s options page is not in the allowed options list.' ),
 				'<code>' . esc_html( $option_page ) . '</code>'
 			)
 		);
@@ -344,15 +344,17 @@ if ( 'update' === $action ) { // We are saving settings sent from a settings pag
 	if ( ! count( get_settings_errors() ) ) {
 		add_settings_error( 'general', 'settings_updated', __( 'Settings saved.' ), 'success' );
 	}
-	set_transient( 'settings_errors', get_settings_errors(), 30 );
+
+	set_transient( 'settings_errors', get_settings_errors(), 30 ); // 30 seconds.
 
 	// Redirect back to the settings page that was submitted.
 	$goback = add_query_arg( 'settings-updated', 'true', wp_get_referer() );
 	wp_redirect( $goback );
-	exit;
+	do_exit();
 }
 
-require_once ABSPATH . 'wp-admin/admin-header.php'; ?>
+require_once ABSPATH . 'wp-admin/admin-header.php';
+?>
 
 <div class="wrap">
 	<h1><?php esc_html_e( 'All Settings' ); ?></h1>

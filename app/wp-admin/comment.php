@@ -68,8 +68,8 @@ switch ( $action ) {
 
 		get_current_screen()->set_help_sidebar(
 			'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-			'<p>' . __( '<a href="https://wordpress.org/support/article/comments-screen/">Documentation on Comments</a>' ) . '</p>' .
-			'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+			'<p>' . __( '<a href="https://wordpress.org/documentation/article/comments-screen/">Documentation on Comments</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 		);
 
 		wp_enqueue_script( 'comment' );
@@ -102,18 +102,18 @@ switch ( $action ) {
 
 		if ( ! $comment ) {
 			wp_redirect( admin_url( 'edit-comments.php?error=1' ) );
-			die();
+			do_exit();
 		}
 
 		if ( ! current_user_can( 'edit_comment', $comment->comment_ID ) ) {
 			wp_redirect( admin_url( 'edit-comments.php?error=2' ) );
-			die();
+			do_exit();
 		}
 
 		// No need to re-approve/re-trash/re-spam a comment.
 		if ( str_replace( '1', 'approve', $comment->comment_approved ) === $action ) {
 			wp_redirect( admin_url( 'edit-comments.php?same=' . $comment_id ) );
-			die();
+			do_exit();
 		}
 
 		require_once ABSPATH . 'wp-admin/admin-header.php';
@@ -338,7 +338,7 @@ switch ( $action ) {
 		}
 
 		wp_redirect( $redir );
-		die;
+		do_exit();
 
 	case 'editedcomment':
 		$comment_id      = absint( $_POST['comment_ID'] );
@@ -364,7 +364,7 @@ switch ( $action ) {
 		$location = apply_filters( 'comment_edit_redirect', $location, $comment_id );
 
 		wp_redirect( $location );
-		exit;
+		do_exit();
 
 	default:
 		wp_die( __( 'Unknown action.' ) );

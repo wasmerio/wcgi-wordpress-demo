@@ -85,7 +85,7 @@ if ( isset( $_GET['action'] ) ) {
 			wp_redirect( admin_url( 'update.php?action=activate-plugin&failure=true&plugin=' . urlencode( $plugin ) . '&_wpnonce=' . $_GET['_wpnonce'] ) );
 			activate_plugin( $plugin, '', ! empty( $_GET['networkwide'] ), true );
 			wp_redirect( admin_url( 'update.php?action=activate-plugin&success=true&plugin=' . urlencode( $plugin ) . '&_wpnonce=' . $_GET['_wpnonce'] ) );
-			die();
+			do_exit();
 		}
 		iframe_header( __( 'Plugin Reactivation' ), true );
 		if ( isset( $_GET['success'] ) ) {
@@ -188,7 +188,7 @@ if ( isset( $_GET['action'] ) ) {
 
 		check_admin_referer( 'plugin-upload-cancel-overwrite' );
 
-		// Make sure the attachment still exists, or File_Upload_Upgrader will call wp_die()
+		// Make sure the attachment still exists, or File_Upload_Upgrader will call wp_exit(0);
 		// that shows a generic "Please select a file" error.
 		if ( ! empty( $_GET['package'] ) ) {
 			$attachment_id = (int) $_GET['package'];
@@ -200,7 +200,7 @@ if ( isset( $_GET['action'] ) ) {
 		}
 
 		wp_redirect( self_admin_url( 'plugin-install.php' ) );
-		exit;
+		do_exit();
 	} elseif ( 'upgrade-theme' === $action ) {
 
 		if ( ! current_user_can( 'update_themes' ) ) {
@@ -336,7 +336,7 @@ if ( isset( $_GET['action'] ) ) {
 
 		check_admin_referer( 'theme-upload-cancel-overwrite' );
 
-		// Make sure the attachment still exists, or File_Upload_Upgrader will call wp_die()
+		// Make sure the attachment still exists, or File_Upload_Upgrader will call wp_exit(0);
 		// that shows a generic "Please select a file" error.
 		if ( ! empty( $_GET['package'] ) ) {
 			$attachment_id = (int) $_GET['package'];
@@ -348,7 +348,7 @@ if ( isset( $_GET['action'] ) ) {
 		}
 
 		wp_redirect( self_admin_url( 'theme-install.php' ) );
-		exit;
+		do_exit();
 	} else {
 		/**
 		 * Fires when a custom plugin or theme update request is received.

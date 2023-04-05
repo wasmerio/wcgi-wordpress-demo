@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////
 
 if (!defined('GETID3_INCLUDEPATH')) { // prevent path-exposing attacks that access modules directly on public webservers
-	exit;
+	do_exit();
 }
 getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.tag.id3v1.php', __FILE__, true);
 
@@ -2064,7 +2064,7 @@ class getid3_id3v2 extends getid3_handler
 							$parsedFrame['subframes'][] = $subframe;
 							break;
 						case 'WXXX':
-							list($subframe['chapter_url_description'], $subframe['chapter_url']) = explode("\x00", $encoding_converted_text, 2);
+							@list($subframe['chapter_url_description'], $subframe['chapter_url']) = explode("\x00", $encoding_converted_text, 2);
 							$parsedFrame['chapter_url'][$subframe['chapter_url_description']] = $subframe['chapter_url'];
 							$parsedFrame['subframes'][] = $subframe;
 							break;

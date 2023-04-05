@@ -5,6 +5,7 @@
  * @package WordPress
  * @since 2.1.0
  */
+#[AllowDynamicProperties]
 class WP_Ajax_Response {
 	/**
 	 * Store XML responses to send.
@@ -156,9 +157,9 @@ class WP_Ajax_Response {
 		}
 		echo '</wp_ajax>';
 		if ( wp_doing_ajax() ) {
-			wp_die();
+			wp_exit(0);
 		} else {
-			die();
+			do_exit();
 		}
 	}
 }

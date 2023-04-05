@@ -44,32 +44,32 @@ if ( $action ) {
 			} else {
 				wp_safe_redirect( add_query_arg( 'enabled', 1, $referer ) );
 			}
-			exit;
+			do_exit();
 		case 'disable':
 			check_admin_referer( 'disable-theme_' . $_GET['theme'] );
 			WP_Theme::network_disable_theme( $_GET['theme'] );
 			wp_safe_redirect( add_query_arg( 'disabled', '1', $referer ) );
-			exit;
+			do_exit();
 		case 'enable-selected':
 			check_admin_referer( 'bulk-themes' );
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
-				exit;
+				do_exit();
 			}
 			WP_Theme::network_enable_theme( (array) $themes );
 			wp_safe_redirect( add_query_arg( 'enabled', count( $themes ), $referer ) );
-			exit;
+			do_exit();
 		case 'disable-selected':
 			check_admin_referer( 'bulk-themes' );
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
-				exit;
+				do_exit();
 			}
 			WP_Theme::network_disable_theme( (array) $themes );
 			wp_safe_redirect( add_query_arg( 'disabled', count( $themes ), $referer ) );
-			exit;
+			do_exit();
 		case 'update-selected':
 			check_admin_referer( 'bulk-themes' );
 
@@ -96,7 +96,7 @@ if ( $action ) {
 			echo "<iframe src='$url' style='width: 100%; height:100%; min-height:850px;'></iframe>";
 			echo '</div>';
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-			exit;
+			do_exit();
 		case 'delete-selected':
 			if ( ! current_user_can( 'delete_themes' ) ) {
 				wp_die( __( 'Sorry, you are not allowed to delete themes for this site.' ) );
@@ -108,14 +108,14 @@ if ( $action ) {
 
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
-				exit;
+				do_exit();
 			}
 
 			$themes = array_diff( $themes, array( get_option( 'stylesheet' ), get_option( 'template' ) ) );
 
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'main', $referer ) );
-				exit;
+				do_exit();
 			}
 
 			$theme_info = array();
@@ -186,7 +186,7 @@ if ( $action ) {
 				<?php
 
 				require_once ABSPATH . 'wp-admin/admin-footer.php';
-				exit;
+				do_exit();
 			} // End if verify-delete.
 
 			foreach ( $themes as $theme ) {
@@ -217,7 +217,7 @@ if ( $action ) {
 					network_admin_url( 'themes.php' )
 				)
 			);
-			exit;
+			do_exit();
 		case 'enable-auto-update':
 		case 'disable-auto-update':
 		case 'enable-auto-update-selected':
@@ -232,7 +232,7 @@ if ( $action ) {
 				if ( empty( $_POST['checked'] ) ) {
 					// Nothing to do.
 					wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
-					exit;
+					do_exit();
 				}
 
 				check_admin_referer( 'bulk-themes' );
@@ -269,12 +269,12 @@ if ( $action ) {
 			update_site_option( 'auto_update_themes', $auto_updates );
 
 			wp_safe_redirect( $referer );
-			exit;
+			do_exit();
 		default:
 			$themes = isset( $_POST['checked'] ) ? (array) $_POST['checked'] : array();
 			if ( empty( $themes ) ) {
 				wp_safe_redirect( add_query_arg( 'error', 'none', $referer ) );
-				exit;
+				do_exit();
 			}
 			check_admin_referer( 'bulk-themes' );
 
@@ -282,7 +282,7 @@ if ( $action ) {
 			$referer = apply_filters( 'handle_network_bulk_actions-' . get_current_screen()->id, $referer, $action, $themes ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 			wp_safe_redirect( $referer );
-			exit;
+			do_exit();
 	}
 }
 
@@ -316,14 +316,14 @@ if ( current_user_can( 'update_themes' ) && wp_is_auto_update_enabled_for_type( 
 		)
 	);
 
-	$help_sidebar_autoupdates = '<p>' . __( '<a href="https://wordpress.org/support/article/plugins-themes-auto-updates/">Learn more: Auto-updates documentation</a>' ) . '</p>';
+	$help_sidebar_autoupdates = '<p>' . __( '<a href="https://wordpress.org/documentation/article/plugins-themes-auto-updates/">Documentation on Auto-updates</a>' ) . '</p>';
 }
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
 	'<p>' . __( '<a href="https://codex.wordpress.org/Network_Admin_Themes_Screen">Documentation on Network Themes</a>' ) . '</p>' .
 	$help_sidebar_autoupdates .
-	'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content(
@@ -375,7 +375,7 @@ if ( isset( $_GET['enabled'] ) ) {
 		/* translators: %s: Number of themes. */
 		$message = _n( '%s theme enabled.', '%s themes enabled.', $enabled );
 	}
-	echo '<div id="message" class="updated notice is-dismissible"><p>' . sprintf( $message, number_format_i18n( $enabled ) ) . '</p></div>';
+	echo '<div id="message" class="notice notice-updated is-dismissible"><p>' . sprintf( $message, number_format_i18n( $enabled ) ) . '</p></div>';
 } elseif ( isset( $_GET['disabled'] ) ) {
 	$disabled = absint( $_GET['disabled'] );
 	if ( 1 === $disabled ) {
@@ -384,7 +384,7 @@ if ( isset( $_GET['enabled'] ) ) {
 		/* translators: %s: Number of themes. */
 		$message = _n( '%s theme disabled.', '%s themes disabled.', $disabled );
 	}
-	echo '<div id="message" class="updated notice is-dismissible"><p>' . sprintf( $message, number_format_i18n( $disabled ) ) . '</p></div>';
+	echo '<div id="message" class="notice notice-updated is-dismissible"><p>' . sprintf( $message, number_format_i18n( $disabled ) ) . '</p></div>';
 } elseif ( isset( $_GET['deleted'] ) ) {
 	$deleted = absint( $_GET['deleted'] );
 	if ( 1 === $deleted ) {
@@ -393,7 +393,7 @@ if ( isset( $_GET['enabled'] ) ) {
 		/* translators: %s: Number of themes. */
 		$message = _n( '%s theme deleted.', '%s themes deleted.', $deleted );
 	}
-	echo '<div id="message" class="updated notice is-dismissible"><p>' . sprintf( $message, number_format_i18n( $deleted ) ) . '</p></div>';
+	echo '<div id="message" class="notice notice-success is-dismissible"><p>' . sprintf( $message, number_format_i18n( $deleted ) ) . '</p></div>';
 } elseif ( isset( $_GET['enabled-auto-update'] ) ) {
 	$enabled = absint( $_GET['enabled-auto-update'] );
 	if ( 1 === $enabled ) {
@@ -402,7 +402,7 @@ if ( isset( $_GET['enabled'] ) ) {
 		/* translators: %s: Number of themes. */
 		$message = _n( '%s theme will be auto-updated.', '%s themes will be auto-updated.', $enabled );
 	}
-	echo '<div id="message" class="updated notice is-dismissible"><p>' . sprintf( $message, number_format_i18n( $enabled ) ) . '</p></div>';
+	echo '<div id="message" class="notice notice-success is-dismissible"><p>' . sprintf( $message, number_format_i18n( $enabled ) ) . '</p></div>';
 } elseif ( isset( $_GET['disabled-auto-update'] ) ) {
 	$disabled = absint( $_GET['disabled-auto-update'] );
 	if ( 1 === $disabled ) {
@@ -411,11 +411,11 @@ if ( isset( $_GET['enabled'] ) ) {
 		/* translators: %s: Number of themes. */
 		$message = _n( '%s theme will no longer be auto-updated.', '%s themes will no longer be auto-updated.', $disabled );
 	}
-	echo '<div id="message" class="updated notice is-dismissible"><p>' . sprintf( $message, number_format_i18n( $disabled ) ) . '</p></div>';
+	echo '<div id="message" class="notice notice-success is-dismissible"><p>' . sprintf( $message, number_format_i18n( $disabled ) ) . '</p></div>';
 } elseif ( isset( $_GET['error'] ) && 'none' === $_GET['error'] ) {
-	echo '<div id="message" class="error notice is-dismissible"><p>' . __( 'No theme selected.' ) . '</p></div>';
+	echo '<div id="message" class="notice notice-error is-dismissible"><p>' . __( 'No theme selected.' ) . '</p></div>';
 } elseif ( isset( $_GET['error'] ) && 'main' === $_GET['error'] ) {
-	echo '<div class="error notice is-dismissible"><p>' . __( 'You cannot delete a theme while it is active on the main site.' ) . '</p></div>';
+	echo '<div id="message" class="notice notice-error is-dismissible"><p>' . __( 'You cannot delete a theme while it is active on the main site.' ) . '</p></div>';
 }
 
 ?>

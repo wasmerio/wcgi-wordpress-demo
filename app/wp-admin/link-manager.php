@@ -38,10 +38,10 @@ if ( $doaction && isset( $_REQUEST['linkcheck'] ) ) {
 		$redirect_to = apply_filters( "handle_bulk_actions-{$screen}", $redirect_to, $doaction, $bulklinks ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 	}
 	wp_redirect( $redirect_to );
-	exit;
+	do_exit();
 } elseif ( ! empty( $_GET['_wp_http_referer'] ) ) {
 	wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-	exit;
+	do_exit();
 }
 
 $wp_list_table->prepare_items();
@@ -77,7 +77,7 @@ get_current_screen()->add_help_tab(
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
 	'<p>' . __( '<a href="https://codex.wordpress.org/Links_Screen">Documentation on Managing Links</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content(

@@ -15,7 +15,7 @@
 /////////////////////////////////////////////////////////////////
 
 if (!defined('GETID3_INCLUDEPATH')) { // prevent path-exposing attacks that access modules directly on public webservers
-	exit;
+	do_exit();
 }
 
 class getid3_id3v1 extends getid3_handler

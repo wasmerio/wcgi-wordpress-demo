@@ -50,10 +50,9 @@ if ( get_option( 'db_upgraded' ) ) {
 } elseif ( ! wp_doing_ajax() && empty( $_POST )
 	&& (int) get_option( 'db_version' ) !== $wp_db_version
 ) {
-
 	if ( ! is_multisite() ) {
 		wp_redirect( admin_url( 'upgrade.php?_wp_http_referer=' . urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
-		exit;
+		do_exit();
 	}
 
 	/**
@@ -93,11 +92,9 @@ if ( get_option( 'db_upgraded' ) ) {
 		unset( $c );
 	}
 }
-
 require_once ABSPATH . 'wp-admin/includes/admin.php';
 
 auth_redirect();
-
 // Schedule Trash collection.
 if ( ! wp_next_scheduled( 'wp_scheduled_delete' ) && ! wp_installing() ) {
 	wp_schedule_event( time(), 'daily', 'wp_scheduled_delete' );
@@ -107,7 +104,6 @@ if ( ! wp_next_scheduled( 'wp_scheduled_delete' ) && ! wp_installing() ) {
 if ( ! wp_next_scheduled( 'delete_expired_transients' ) && ! wp_installing() ) {
 	wp_schedule_event( time(), 'daily', 'delete_expired_transients' );
 }
-
 set_screen_options();
 
 $date_format = __( 'F j, Y' );
@@ -161,7 +157,6 @@ if ( WP_NETWORK_ADMIN ) {
 if ( current_user_can( 'manage_options' ) ) {
 	wp_raise_memory_limit( 'admin' );
 }
-
 /**
  * Fires as an admin screen or script is being initialized.
  *
@@ -173,7 +168,6 @@ if ( current_user_can( 'manage_options' ) ) {
  * @since 2.5.0
  */
 do_action( 'admin_init' );
-
 if ( isset( $plugin_page ) ) {
 	if ( ! empty( $typenow ) ) {
 		$the_parent = $pagenow . '?post_type=' . $typenow;
@@ -194,7 +188,7 @@ if ( isset( $plugin_page ) ) {
 				$query_string = 'page=' . $plugin_page;
 			}
 			wp_redirect( admin_url( 'tools.php?' . $query_string ) );
-			exit;
+			do_exit();
 		}
 	}
 	unset( $the_parent );
@@ -296,7 +290,7 @@ if ( isset( $plugin_page ) ) {
 
 	require_once ABSPATH . 'wp-admin/admin-footer.php';
 
-	exit;
+	do_exit();
 } elseif ( isset( $_GET['import'] ) ) {
 
 	$importer = $_GET['import'];
@@ -307,12 +301,12 @@ if ( isset( $plugin_page ) ) {
 
 	if ( validate_file( $importer ) ) {
 		wp_redirect( admin_url( 'import.php?invalid=' . $importer ) );
-		exit;
+		do_exit();
 	}
 
 	if ( ! isset( $wp_importers[ $importer ] ) || ! is_callable( $wp_importers[ $importer ][2] ) ) {
 		wp_redirect( admin_url( 'import.php?invalid=' . $importer ) );
-		exit;
+		do_exit();
 	}
 
 	/**
@@ -368,7 +362,7 @@ if ( isset( $plugin_page ) ) {
 	// Make sure rules are flushed.
 	flush_rewrite_rules( false );
 
-	exit;
+	do_exit();
 } else {
 	/**
 	 * Fires before a particular screen is loaded.

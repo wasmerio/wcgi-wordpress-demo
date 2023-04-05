@@ -710,7 +710,7 @@ class SimplePie
 		if (version_compare(PHP_VERSION, '5.6', '<'))
 		{
 			trigger_error('Please upgrade to PHP 5.6 or newer.');
-			die();
+			do_exit();
 		}
 
 		// Other objects, instances created here so we can set options on them
@@ -1864,7 +1864,7 @@ class SimplePie
 	}
 
 	/**
-	 * Send the content-type header with correct encoding
+	 * Send the Content-Type header with correct encoding
 	 *
 	 * This method ensures that the SimplePie-enabled page is being served with
 	 * the correct {@link http://www.iana.org/assignments/media-types/ mime-type}
@@ -1886,7 +1886,7 @@ class SimplePie
 	{
 		if (!headers_sent())
 		{
-			$header = "Content-type: $mime;";
+			$header = "Content-Type: $mime;";
 			if ($this->get_encoding())
 			{
 				$header .= ' charset=' . $this->get_encoding();

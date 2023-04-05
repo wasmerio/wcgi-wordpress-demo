@@ -29,8 +29,8 @@ get_current_screen()->add_help_tab(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/article/tools-import-screen/">Documentation on Import</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/tools-import-screen/">Documentation on Import</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/forums">Support</a>' ) . '</p>'
 );
 
 if ( current_user_can( 'install_plugins' ) ) {
@@ -45,7 +45,7 @@ if ( ! empty( $_GET['invalid'] ) && isset( $popular_importers[ $_GET['invalid'] 
 	$importer_id = $popular_importers[ $_GET['invalid'] ]['importer-id'];
 	if ( $importer_id !== $_GET['invalid'] ) { // Prevent redirect loops.
 		wp_redirect( admin_url( 'admin.php?import=' . $importer_id ) );
-		exit;
+		do_exit();
 	}
 	unset( $importer_id );
 }

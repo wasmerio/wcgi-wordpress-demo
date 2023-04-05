@@ -44,7 +44,7 @@ if ( isset( $_GET['action'] ) ) {
 			} else {
 				wp_redirect( network_admin_url( 'users.php' ) );
 			}
-			exit;
+			do_exit();
 
 		case 'allusers':
 			if ( ! current_user_can( 'manage_network_users' ) ) {
@@ -76,7 +76,7 @@ if ( isset( $_GET['action'] ) ) {
 								echo '</div>';
 
 								require_once ABSPATH . 'wp-admin/admin-footer.php';
-								exit;
+								do_exit();
 
 							case 'spam':
 								$user = get_userdata( $user_id );
@@ -132,7 +132,7 @@ if ( isset( $_GET['action'] ) ) {
 					$sendback = apply_filters( 'handle_network_bulk_actions-' . get_current_screen()->id, $sendback, $doaction, $user_ids ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 					wp_safe_redirect( $sendback );
-					exit;
+					do_exit();
 				}
 
 				wp_safe_redirect(
@@ -152,7 +152,7 @@ if ( isset( $_GET['action'] ) ) {
 				}
 				wp_redirect( $location );
 			}
-			exit;
+			do_exit();
 
 		case 'dodelete':
 			check_admin_referer( 'ms-users-delete' );
@@ -203,7 +203,7 @@ if ( isset( $_GET['action'] ) ) {
 					network_admin_url( 'users.php' )
 				)
 			);
-			exit;
+			do_exit();
 	}
 }
 
@@ -214,7 +214,7 @@ $total_pages = $wp_list_table->get_pagination_arg( 'total_pages' );
 
 if ( $pagenum > $total_pages && $total_pages > 0 ) {
 	wp_redirect( add_query_arg( 'paged', $total_pages ) );
-	exit;
+	do_exit();
 }
 
 // Used in the HTML title tag.
@@ -240,7 +240,7 @@ get_current_screen()->add_help_tab(
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
 	'<p>' . __( '<a href="https://codex.wordpress.org/Network_Admin_Users_Screen">Documentation on Network Users</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/forum/multisite/">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/support/forum/multisite/">Support forums</a>' ) . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content(
@@ -255,7 +255,7 @@ require_once ABSPATH . 'wp-admin/admin-header.php';
 
 if ( isset( $_REQUEST['updated'] ) && 'true' == $_REQUEST['updated'] && ! empty( $_REQUEST['action'] ) ) {
 	?>
-	<div id="message" class="updated notice is-dismissible"><p>
+	<div id="message" class="notice notice-success is-dismissible"><p>
 		<?php
 		switch ( $_REQUEST['action'] ) {
 			case 'delete':

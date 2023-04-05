@@ -89,6 +89,6 @@ class WP_REST_Edit_Site_Export_Controller extends WP_REST_Controller {
 		flush();
 		readfile( $filename );
 		unlink( $filename );
-		exit;
+		do_exit();
 	}
 }

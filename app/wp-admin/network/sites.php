@@ -43,8 +43,8 @@ get_current_screen()->add_help_tab(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/article/network-admin-sites-screen/">Documentation on Site Management</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/forum/multisite/">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/network-admin-sites-screen/">Documentation on Site Management</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/forum/multisite/">Support forums</a>' ) . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content(
@@ -124,7 +124,7 @@ if ( isset( $_GET['action'] ) ) {
 			</div>
 		<?php
 		require_once ABSPATH . 'wp-admin/admin-footer.php';
-		exit;
+		do_exit();
 	} elseif ( array_key_exists( $_GET['action'], $manage_actions ) ) {
 		$action = $_GET['action'];
 		check_admin_referer( $action . '_' . $id );
@@ -211,7 +211,7 @@ if ( isset( $_GET['action'] ) ) {
 								</div>
 								<?php
 								require_once ABSPATH . 'wp-admin/admin-footer.php';
-								exit;
+								do_exit();
 							break;
 
 							case 'spam':
@@ -233,7 +233,7 @@ if ( isset( $_GET['action'] ) ) {
 					$redirect_to = apply_filters( 'handle_network_bulk_actions-' . get_current_screen()->id, $redirect_to, $doaction, $blogs, $id ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 					wp_safe_redirect( $redirect_to );
-					exit;
+					do_exit();
 				}
 			} else {
 				// Process query defined by WP_MS_Site_List_Table::extra_table_nav().
@@ -243,7 +243,7 @@ if ( isset( $_GET['action'] ) ) {
 				);
 
 				wp_redirect( $location );
-				exit;
+				do_exit();
 			}
 
 			break;
@@ -296,7 +296,7 @@ if ( isset( $_GET['action'] ) ) {
 
 	if ( ! empty( $updated_action ) ) {
 		wp_safe_redirect( add_query_arg( array( 'updated' => $updated_action ), wp_get_referer() ) );
-		exit;
+		do_exit();
 	}
 }
 
@@ -354,7 +354,7 @@ if ( isset( $_GET['updated'] ) ) {
 	}
 
 	if ( ! empty( $msg ) ) {
-		$msg = '<div id="message" class="updated notice is-dismissible"><p>' . $msg . '</p></div>';
+		$msg = '<div id="message" class="notice notice-success is-dismissible"><p>' . $msg . '</p></div>';
 	}
 }
 

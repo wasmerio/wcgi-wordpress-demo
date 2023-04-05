@@ -14,7 +14,7 @@ if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
 	header( 'Allow: POST' );
 	header( "$protocol 405 Method Not Allowed" );
 	header( 'Content-Type: text/plain' );
-	exit;
+	do_exit();
 }
 
 /** Sets up the WordPress Environment. */
@@ -35,7 +35,7 @@ if ( is_wp_error( $comment ) ) {
 			)
 		);
 	} else {
-		exit;
+		do_exit();
 	}
 }
 
@@ -78,4 +78,4 @@ if ( ! $cookies_consent && 'unapproved' === wp_get_comment_status( $comment ) &&
 $location = apply_filters( 'comment_post_redirect', $location, $comment );
 
 wp_safe_redirect( $location );
-exit;
+exit(0);

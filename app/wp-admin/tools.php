@@ -22,17 +22,17 @@ if ( isset( $_GET['page'] ) && ! empty( $_POST ) ) {
 if ( isset( $_GET['wp-privacy-policy-guide'] ) ) {
 	require_once dirname( __DIR__ ) . '/wp-load.php';
 	wp_redirect( admin_url( 'options-privacy.php?tab=policyguide' ), 301 );
-	exit;
+	do_exit();
 } elseif ( isset( $_GET['page'] ) ) {
 	// These were also moved to files in WP 5.3.
 	if ( 'export_personal_data' === $_GET['page'] ) {
 		require_once dirname( __DIR__ ) . '/wp-load.php';
 		wp_redirect( admin_url( 'export-personal-data.php' ), 301 );
-		exit;
+		do_exit();
 	} elseif ( 'remove_personal_data' === $_GET['page'] ) {
 		require_once dirname( __DIR__ ) . '/wp-load.php';
 		wp_redirect( admin_url( 'erase-personal-data.php' ), 301 );
-		exit;
+		do_exit();
 	}
 }
 
@@ -53,8 +53,8 @@ get_current_screen()->add_help_tab(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/article/tools-screen/">Documentation on Tools</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://wordpress.org/documentation/article/tools-screen/">Documentation on Tools</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 );
 
 require_once ABSPATH . 'wp-admin/admin-header.php';

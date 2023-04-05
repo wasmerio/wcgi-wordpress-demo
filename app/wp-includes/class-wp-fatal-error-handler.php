@@ -16,6 +16,7 @@
  *
  * @since 5.2.0
  */
+#[AllowDynamicProperties]
 class WP_Fatal_Error_Handler {
 
 	/**
@@ -158,7 +159,7 @@ class WP_Fatal_Error_Handler {
 	 *
 	 * This method is called conditionally if no 'php-error.php' drop-in is available.
 	 *
-	 * It calls {@see wp_die()} with a message indicating that the site is experiencing technical difficulties and a
+	 * It calls {@see wp_exit(0);} with a message indicating that the site is experiencing technical difficulties and a
 	 * login link to the admin backend. The {@see 'wp_php_error_message'} and {@see 'wp_php_error_args'} filters can
 	 * be used to modify these parameters.
 	 *
@@ -184,7 +185,11 @@ class WP_Fatal_Error_Handler {
 		if ( true === $handled && wp_is_recovery_mode() ) {
 			$message = __( 'There has been a critical error on this website, putting it in recovery mode. Please check the Themes and Plugins screens for more details. If you just installed or updated a theme or plugin, check the relevant page for that first.' );
 		} elseif ( is_protected_endpoint() && wp_recovery_mode()->is_initialized() ) {
-			$message = __( 'There has been a critical error on this website. Please check your site admin email inbox for instructions.' );
+			if ( is_multisite() ) {
+				$message = __( 'There has been a critical error on this website. Please reach out to your site administrator, and inform them of this error for further assistance.' );
+			} else {
+				$message = __( 'There has been a critical error on this website. Please check your site admin email inbox for instructions.' );
+			}
 		} else {
 			$message = __( 'There has been a critical error on this website.' );
 		}
@@ -193,7 +198,7 @@ class WP_Fatal_Error_Handler {
 			'<p>%s</p><p><a href="%s">%s</a></p>',
 			$message,
 			/* translators: Documentation about troubleshooting. */
-			__( 'https://wordpress.org/support/article/faq-troubleshooting/' ),
+			__( 'https://wordpress.org/documentation/article/faq-troubleshooting/' ),
 			__( 'Learn more about troubleshooting WordPress.' )
 		);
 
@@ -213,11 +218,11 @@ class WP_Fatal_Error_Handler {
 		$message = apply_filters( 'wp_php_error_message', $message, $error );
 
 		/**
-		 * Filters the arguments passed to {@see wp_die()} for the default PHP error template.
+		 * Filters the arguments passed to {@see wp_exit(0);} for the default PHP error template.
 		 *
 		 * @since 5.2.0
 		 *
-		 * @param array $args Associative array of arguments passed to `wp_die()`. By default these contain a
+		 * @param array $args Associative array of arguments passed to `wp_exit(0);`. By default these contain a
 		 *                    'response' key, and optionally 'link_url' and 'link_text' keys.
 		 * @param array $error Error information retrieved from `error_get_last()`.
 		 */

@@ -9,6 +9,11 @@
 /** WordPress Administration Bootstrap */
 require_once __DIR__ . '/admin.php';
 
+/**
+ * @global string $typenow The post type of the current screen.
+ */
+global $typenow;
+
 if ( ! $typenow ) {
 	wp_die( __( 'Invalid post type.' ) );
 }
@@ -19,7 +24,7 @@ if ( ! in_array( $typenow, get_post_types( array( 'show_ui' => true ) ), true ) 
 
 if ( 'attachment' === $typenow ) {
 	if ( wp_redirect( admin_url( 'upload.php' ) ) ) {
-		exit;
+		do_exit();
 	}
 }
 
@@ -51,7 +56,7 @@ $pagenum       = $wp_list_table->get_pagenum();
 foreach ( array( 'p', 'attachment_id', 'page_id' ) as $_redirect ) {
 	if ( ! empty( $_REQUEST[ $_redirect ] ) ) {
 		wp_redirect( admin_url( 'edit-comments.php?p=' . absint( $_REQUEST[ $_redirect ] ) ) );
-		exit;
+		do_exit();
 	}
 }
 unset( $_redirect );
@@ -87,6 +92,11 @@ if ( $doaction ) {
 		$post_status = preg_replace( '/[^a-z0-9_-]+/i', '', $_REQUEST['post_status'] );
 		// Validate the post status exists.
 		if ( get_post_status_object( $post_status ) ) {
+			/**
+			 * @global wpdb $wpdb WordPress database abstraction object.
+			 */
+			global $wpdb;
+
 			$post_ids = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type=%s AND post_status = %s", $post_type, $post_status ) );
 		}
 		$doaction = 'delete';
@@ -100,7 +110,7 @@ if ( $doaction ) {
 
 	if ( empty( $post_ids ) ) {
 		wp_redirect( $sendback );
-		exit;
+		do_exit();
 	}
 
 	switch ( $doaction ) {
@@ -216,10 +226,10 @@ if ( $doaction ) {
 	$sendback = remove_query_arg( array( 'action', 'action2', 'tags_input', 'post_author', 'comment_status', 'ping_status', '_status', 'post', 'bulk_edit', 'post_view' ), $sendback );
 
 	wp_redirect( $sendback );
-	exit;
+	do_exit();
 } elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
 	wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
-	exit;
+	do_exit();
 }
 
 $wp_list_table->prepare_items();
@@ -284,8 +294,8 @@ if ( 'post' === $post_type ) {
 
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-		'<p>' . __( '<a href="https://wordpress.org/support/article/posts-screen/">Documentation on Managing Posts</a>' ) . '</p>' .
-		'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+		'<p>' . __( '<a href="https://wordpress.org/documentation/article/posts-screen/">Documentation on Managing Posts</a>' ) . '</p>' .
+		'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 	);
 
 } elseif ( 'page' === $post_type ) {
@@ -309,8 +319,8 @@ if ( 'post' === $post_type ) {
 
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-		'<p>' . __( '<a href="https://wordpress.org/support/article/pages-screen/">Documentation on Managing Pages</a>' ) . '</p>' .
-		'<p>' . __( '<a href="https://wordpress.org/support/">Support</a>' ) . '</p>'
+		'<p>' . __( '<a href="https://wordpress.org/documentation/article/pages-screen/">Documentation on Managing Pages</a>' ) . '</p>' .
+		'<p>' . __( '<a href="https://wordpress.org/support/forums/">Support forums</a>' ) . '</p>'
 	);
 
 }

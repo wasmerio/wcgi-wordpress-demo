@@ -30,7 +30,7 @@ if ( 'post' === $post_type ) {
 	$submenu_file = 'post-new.php';
 } elseif ( 'attachment' === $post_type ) {
 	if ( wp_redirect( admin_url( 'media-new.php' ) ) ) {
-		exit;
+		do_exit();
 	}
 } else {
 	$submenu_file = "post-new.php?post_type=$post_type";
