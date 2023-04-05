@@ -69,7 +69,7 @@ if ( 'update_https' === $action ) {
 	$result = wp_update_urls_to_https();
 
 	wp_redirect( add_query_arg( 'https_updated', (int) $result, wp_get_referer() ) );
-	exit(0);
+	do_exit();
 }
 
 $health_check_site_status = WP_Site_Health::get_instance();

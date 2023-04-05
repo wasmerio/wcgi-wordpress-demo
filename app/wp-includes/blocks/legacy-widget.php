@@ -140,7 +140,7 @@ function handle_legacy_widget_preview_iframe() {
 	</html>
 	<?php
 
-	exit(0);
+	do_exit();
 }
 
 // Use admin_init instead of init to ensure get_current_screen function is already available.

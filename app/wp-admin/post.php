@@ -83,7 +83,7 @@ switch ( $action ) {
 		}
 
 		if ( ! current_user_can( get_post_type_object( 'post' )->cap->create_posts ) ) {
-			exit(0);
+			do_exit();
 		}
 
 		if ( $error_msg ) {
@@ -106,21 +106,21 @@ switch ( $action ) {
 
 		edit_post();
 		wp_dashboard_quick_press();
-		exit(0);
+		do_exit();
 
 	case 'postajaxpost':
 	case 'post':
 		check_admin_referer( 'add-' . $post_type );
 		$post_id = 'postajaxpost' === $action ? edit_post() : write_post();
 		redirect_post( $post_id );
-		exit(0);
+		do_exit();
 
 	case 'edit':
 		$editing = true;
 
 		if ( empty( $post_id ) ) {
 			wp_redirect( admin_url( 'post.php' ) );
-			exit(0);
+			do_exit();
 		}
 
 		if ( ! $post ) {
@@ -147,7 +147,7 @@ switch ( $action ) {
 			check_admin_referer( 'lock-post_' . $post_id );
 			wp_set_post_lock( $post_id );
 			wp_redirect( get_edit_post_link( $post_id, 'url' ) );
-			exit(0);
+			do_exit();
 		}
 
 		$post_type = $post->post_type;
@@ -233,7 +233,7 @@ switch ( $action ) {
 
 		redirect_post( $post_id ); // Send user on their way while we keep working.
 
-		exit(0);
+		do_exit();
 
 	case 'trash':
 		check_admin_referer( 'trash-post_' . $post_id );
@@ -270,7 +270,7 @@ switch ( $action ) {
 				$sendback
 			)
 		);
-		exit(0);
+		do_exit();
 
 	case 'untrash':
 		check_admin_referer( 'untrash-post_' . $post_id );
@@ -299,7 +299,7 @@ switch ( $action ) {
 			$sendback
 		);
 		wp_redirect( $sendback );
-		exit(0);
+		do_exit();
 
 	case 'delete':
 		check_admin_referer( 'delete-post_' . $post_id );
@@ -328,7 +328,7 @@ switch ( $action ) {
 		}
 
 		wp_redirect( add_query_arg( 'deleted', 1, $sendback ) );
-		exit(0);
+		do_exit();
 
 	case 'preview':
 		check_admin_referer( 'update-post_' . $post_id );
@@ -336,7 +336,7 @@ switch ( $action ) {
 		$url = post_preview();
 
 		wp_redirect( $url );
-		exit(0);
+		do_exit();
 
 	case 'toggle-custom-fields':
 		check_admin_referer( 'toggle-custom-fields', 'toggle-custom-fields-nonce' );
@@ -348,7 +348,7 @@ switch ( $action ) {
 		}
 
 		wp_safe_redirect( wp_get_referer() );
-		exit(0);
+		do_exit();
 
 	default:
 		/**
@@ -363,7 +363,7 @@ switch ( $action ) {
 		do_action( "post_action_{$action}", $post_id );
 
 		wp_redirect( admin_url( 'edit.php' ) );
-		exit(0);
+		do_exit();
 } // End switch.
 
 require_once ABSPATH . 'wp-admin/admin-footer.php';

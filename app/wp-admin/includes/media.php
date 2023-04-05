@@ -274,7 +274,7 @@ function media_send_to_editor( $html ) {
 	win.send_to_editor( <?php echo wp_json_encode( $html ); ?> );
 	</script>
 	<?php
-	exit(0);
+	do_exit();
 }
 
 /**
@@ -818,7 +818,7 @@ function media_upload_form_handler() {
 		</script>
 		<?php
 
-		exit(0);
+		do_exit();
 	}
 
 	if ( isset( $send_id ) ) {
@@ -2361,7 +2361,7 @@ function media_upload_type_form( $type = 'file', $errors = null, $id = null ) {
 			echo get_media_items( $id, $errors );
 		} else {
 			echo '<div id="media-upload-error">' . esc_html( $id->get_error_message() ) . '</div></div>';
-			exit(0);
+			do_exit();
 		}
 	}
 
@@ -3856,6 +3856,6 @@ function wp_media_attach_action( $parent_id, $action = 'attach' ) {
 		$location = add_query_arg( array( $key => $result ), $location );
 
 		wp_redirect( $location );
-		exit(0);
+		do_exit();
 	}
 }

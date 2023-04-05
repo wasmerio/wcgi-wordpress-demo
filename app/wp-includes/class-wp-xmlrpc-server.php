@@ -6902,7 +6902,7 @@ class wp_xmlrpc_server extends IXR_Server {
 				$sql     = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_title RLIKE %s", $title );
 				$post_id = $wpdb->get_var( $sql );
 				if ( ! $post_id ) {
-					// Returning unknown error '0' is better than exit(0);'ing.
+					// Returning unknown error '0' is better than do_exit();'ing.
 					return $this->pingback_error( 0, '' );
 				}
 			}

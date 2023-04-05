@@ -155,7 +155,7 @@ function wp_dashboard_setup() {
 		wp_dashboard_trigger_widget_control( $_POST['widget_id'] );
 		ob_end_clean();
 		wp_redirect( remove_query_arg( 'edit' ) );
-		exit(0);
+		do_exit();
 	}
 
 	/** This action is documented in wp-admin/includes/meta-boxes.php */

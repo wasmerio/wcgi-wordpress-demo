@@ -161,7 +161,7 @@ switch ( $wp_list_table->current_action() ) {
 		}
 
 		wp_redirect( sanitize_url( get_edit_term_link( $term_id, $taxonomy, $post_type ) ) );
-		exit(0);
+		do_exit();
 
 	case 'editedtag':
 		$tag_ID = (int) $_POST['tag_ID'];
@@ -226,7 +226,7 @@ if ( $location ) {
 	 * @param WP_Taxonomy $tax      The taxonomy object.
 	 */
 	wp_redirect( apply_filters( 'redirect_term_location', $location, $tax ) );
-	exit(0);
+	do_exit();
 }
 
 $wp_list_table->prepare_items();
@@ -234,7 +234,7 @@ $total_pages = $wp_list_table->get_pagination_arg( 'total_pages' );
 
 if ( $pagenum > $total_pages && $total_pages > 0 ) {
 	wp_redirect( add_query_arg( 'paged', $total_pages ) );
-	exit(0);
+	do_exit();
 }
 
 wp_enqueue_script( 'admin-tags' );

@@ -30,7 +30,7 @@ $load = array_unique( explode( ',', $load ) );
 
 if ( empty( $load ) ) {
 	header( "$protocol 400 Bad Request" );
-	exit(0);
+	do_exit();
 }
 
 require ABSPATH . 'wp-admin/includes/noop.php';
@@ -47,7 +47,7 @@ wp_default_packages_scripts( $wp_scripts );
 
 if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) && stripslashes( $_SERVER['HTTP_IF_NONE_MATCH'] ) === $wp_version ) {
 	header( "$protocol 304 Not Modified" );
-	exit(0);
+	do_exit();
 }
 
 foreach ( $load as $handle ) {

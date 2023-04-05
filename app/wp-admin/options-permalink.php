@@ -206,7 +206,7 @@ if ( $structure_updated ) {
 	set_transient( 'settings_errors', get_settings_errors(), 30 ); // 30 seconds.
 
 	wp_redirect( admin_url( 'options-permalink.php?settings-updated=true' ) );
-	exit(0);
+	do_exit();
 }
 
 flush_rewrite_rules();

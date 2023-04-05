@@ -38,7 +38,7 @@ $load = array_unique( explode( ',', $load ) );
 
 if ( empty( $load ) ) {
 	header( "$protocol 400 Bad Request" );
-	exit(0);
+	do_exit();
 }
 
 $rtl            = ( isset( $_GET['dir'] ) && 'rtl' === $_GET['dir'] );
@@ -50,7 +50,7 @@ wp_default_styles( $wp_styles );
 
 if ( isset( $_SERVER['HTTP_IF_NONE_MATCH'] ) && stripslashes( $_SERVER['HTTP_IF_NONE_MATCH'] ) === $wp_version ) {
 	header( "$protocol 304 Not Modified" );
-	exit(0);
+	do_exit();
 }
 
 foreach ( $load as $handle ) {

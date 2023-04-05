@@ -93,7 +93,7 @@ class WP_Recovery_Mode_Link_Service {
 
 		$url = add_query_arg( 'action', self::LOGIN_ACTION_ENTERED, wp_login_url() );
 		wp_redirect( $url );
-		exit(0);
+		do_exit();
 	}
 
 	/**

@@ -48,10 +48,10 @@ if ( false === strpos( $_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS' ) ) {
 // Optional support for X-Sendfile and X-Accel-Redirect.
 if ( WPMU_ACCEL_REDIRECT ) {
 	header( 'X-Accel-Redirect: ' . str_replace( WP_CONTENT_DIR, '', $file ) );
-	exit(0);
+	do_exit();
 } elseif ( WPMU_SENDFILE ) {
 	header( 'X-Sendfile: ' . $file );
-	exit(0);
+	do_exit();
 }
 
 $last_modified = gmdate( 'D, d M Y H:i:s', filemtime( $file ) );
@@ -79,7 +79,7 @@ if ( ( $client_last_modified && $client_etag )
 	: ( ( $client_modified_timestamp >= $modified_timestamp ) || ( $client_etag == $etag ) )
 	) {
 	status_header( 304 );
-	exit(0);
+	do_exit();
 }
 
 // If we made it this far, just serve the file.

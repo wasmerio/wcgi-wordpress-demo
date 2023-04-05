@@ -20,7 +20,6 @@
  * If DB_DIR is defined, it is used as FQDBDIR.
  */
 if ( ! defined( 'FQDBDIR' ) ) {
-	var_error_log(DB_DIR);
 	if ( defined( 'DB_DIR' ) ) {
 		define( 'FQDBDIR', trailingslashit( DB_DIR ) );
 	} elseif ( defined( 'WP_CONTENT_DIR' ) ) {

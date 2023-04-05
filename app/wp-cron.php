@@ -31,7 +31,7 @@ if ( PHP_VERSION_ID >= 70016 && function_exists( 'fastcgi_finish_request' ) ) {
 }
 
 if ( ! empty( $_POST ) || defined( 'DOING_AJAX' ) || defined( 'DOING_CRON' ) ) {
-	exit(0);
+	do_exit();
 }
 
 /**
@@ -80,7 +80,7 @@ function _get_cron_lock() {
 
 $crons = wp_get_ready_cron_jobs();
 if ( empty( $crons ) ) {
-	exit(0);
+	do_exit();
 }
 
 $gmt_time = microtime( true );

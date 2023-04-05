@@ -21,7 +21,7 @@ if ( ! current_user_can( 'install_plugins' ) ) {
 
 if ( is_multisite() && ! is_network_admin() ) {
 	wp_redirect( network_admin_url( 'plugin-install.php' ) );
-	exit(0);
+	do_exit();
 }
 
 $wp_list_table = _get_list_table( 'WP_Plugin_Install_List_Table' );
@@ -35,7 +35,7 @@ if ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
 	}
 
 	wp_redirect( $location );
-	exit(0);
+	do_exit();
 }
 
 $wp_list_table->prepare_items();
@@ -44,7 +44,7 @@ $total_pages = $wp_list_table->get_pagination_arg( 'total_pages' );
 
 if ( $pagenum > $total_pages && $total_pages > 0 ) {
 	wp_redirect( add_query_arg( 'paged', $total_pages ) );
-	exit(0);
+	do_exit();
 }
 
 // Used in the HTML title tag.

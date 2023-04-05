@@ -122,7 +122,7 @@ if ( ! $redirect && empty( $post->post_type ) ) {
 
 if ( ! empty( $redirect ) ) {
 	wp_redirect( $redirect );
-	exit(0);
+	do_exit();
 }
 
 // This is so that the correct "Edit" menu item is selected.

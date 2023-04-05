@@ -7,7 +7,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit(0);
+	do_exit();
 }
 
 if ( ! class_exists( 'WP_Debug_Data' ) ) {

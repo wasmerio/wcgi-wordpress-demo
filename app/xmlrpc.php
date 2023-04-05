@@ -58,7 +58,7 @@ if ( isset( $_GET['rsd'] ) ) { // http://cyber.law.harvard.edu/blogs/gems/tech/r
 	</service>
 </rsd>
 	<?php
-	exit(0);
+	do_exit();
 }
 
 require_once ABSPATH . 'wp-admin/includes/admin.php';

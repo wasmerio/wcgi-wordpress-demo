@@ -14,7 +14,7 @@ $action = ( isset( $_GET['action'] ) ) ? $_GET['action'] : '';
 
 if ( empty( $action ) ) {
 	wp_redirect( network_admin_url() );
-	exit(0);
+	do_exit();
 }
 
 /**

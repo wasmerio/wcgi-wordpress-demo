@@ -11,7 +11,7 @@ require_once __DIR__ . '/admin.php';
 
 if ( is_multisite() && ! is_network_admin() ) {
 	wp_redirect( network_admin_url( 'theme-editor.php' ) );
-	exit(0);
+	do_exit();
 }
 
 if ( ! current_user_can( 'edit_themes' ) ) {
@@ -135,7 +135,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] ) {
 				admin_url( 'theme-editor.php' )
 			)
 		);
-		exit(0);
+		do_exit();
 	}
 }
 

@@ -15,10 +15,10 @@ require __DIR__ . '/wp-load.php';
 if ( force_ssl_admin() && ! is_ssl() ) {
 	if ( 0 === strpos( $_SERVER['REQUEST_URI'], 'http' ) ) {
 		wp_safe_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
-		exit(0);
+		do_exit();
 	} else {
 		wp_safe_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -548,7 +548,7 @@ switch ( $action ) {
 		 */
 		if ( ! is_user_logged_in() ) {
 			wp_safe_redirect( wp_login_url() );
-			exit(0);
+			do_exit();
 		}
 
 		if ( ! empty( $_REQUEST['redirect_to'] ) ) {
@@ -561,7 +561,7 @@ switch ( $action ) {
 			$admin_email = get_option( 'admin_email' );
 		} else {
 			wp_safe_redirect( $redirect_to );
-			exit(0);
+			do_exit();
 		}
 
 		/**
@@ -578,7 +578,7 @@ switch ( $action ) {
 		if ( ! empty( $_GET['remind_me_later'] ) ) {
 			if ( ! wp_verify_nonce( $_GET['remind_me_later'], 'remind_me_later_nonce' ) ) {
 				wp_safe_redirect( wp_login_url() );
-				exit(0);
+				do_exit();
 			}
 
 			if ( $remind_interval > 0 ) {
@@ -587,13 +587,13 @@ switch ( $action ) {
 
 			$redirect_to = add_query_arg( 'admin_email_remind_later', 1, $redirect_to );
 			wp_safe_redirect( $redirect_to );
-			exit(0);
+			do_exit();
 		}
 
 		if ( ! empty( $_POST['correct-admin-email'] ) ) {
 			if ( ! check_admin_referer( 'confirm_admin_email', 'confirm_admin_email_nonce' ) ) {
 				wp_safe_redirect( wp_login_url() );
-				exit(0);
+				do_exit();
 			}
 
 			/**
@@ -612,7 +612,7 @@ switch ( $action ) {
 			}
 
 			wp_safe_redirect( $redirect_to );
-			exit(0);
+			do_exit();
 		}
 
 		login_header( __( 'Confirm your administration email' ), '', $errors );
@@ -722,7 +722,7 @@ switch ( $action ) {
 	case 'postpass':
 		if ( ! array_key_exists( 'post_password', $_POST ) ) {
 			wp_safe_redirect( wp_get_referer() );
-			exit(0);
+			do_exit();
 		}
 
 		require_once ABSPATH . WPINC . '/class-phpass.php';
@@ -750,7 +750,7 @@ switch ( $action ) {
 		setcookie( 'wp-postpass_' . COOKIEHASH, $hasher->HashPassword( wp_unslash( $_POST['post_password'] ) ), $expire, COOKIEPATH, COOKIE_DOMAIN, $secure );
 
 		wp_safe_redirect( wp_get_referer() );
-		exit(0);
+		do_exit();
 
 	case 'logout':
 		check_admin_referer( 'log-out' );
@@ -786,7 +786,7 @@ switch ( $action ) {
 		$redirect_to = apply_filters( 'logout_redirect', $redirect_to, $requested_redirect_to, $user );
 
 		wp_safe_redirect( $redirect_to );
-		exit(0);
+		do_exit();
 
 	case 'lostpassword':
 	case 'retrievepassword':
@@ -796,7 +796,7 @@ switch ( $action ) {
 			if ( ! is_wp_error( $errors ) ) {
 				$redirect_to = ! empty( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : 'wp-login.php?checkemail=confirm';
 				wp_safe_redirect( $redirect_to );
-				exit(0);
+				do_exit();
 			}
 		}
 
@@ -890,7 +890,7 @@ switch ( $action ) {
 			setcookie( $rp_cookie, $value, 0, $rp_path, COOKIE_DOMAIN, is_ssl(), true );
 
 			wp_safe_redirect( remove_query_arg( array( 'key', 'login' ) ) );
-			exit(0);
+			do_exit();
 		}
 
 		if ( isset( $_COOKIE[ $rp_cookie ] ) && 0 < strpos( $_COOKIE[ $rp_cookie ], ':' ) ) {
@@ -914,7 +914,7 @@ switch ( $action ) {
 				wp_redirect( site_url( 'wp-login.php?action=lostpassword&error=invalidkey' ) );
 			}
 
-			exit(0);
+			do_exit();
 		}
 
 		$errors = new WP_Error();
@@ -948,7 +948,7 @@ switch ( $action ) {
 			setcookie( $rp_cookie, ' ', time() - YEAR_IN_SECONDS, $rp_path, COOKIE_DOMAIN, is_ssl(), true );
 			login_header( __( 'Password Reset' ), '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>' );
 			login_footer();
-			exit(0);
+			do_exit();
 		}
 
 		wp_enqueue_script( 'utils' );
@@ -1036,12 +1036,12 @@ switch ( $action ) {
 			 * @param string $sign_up_url The sign up URL.
 			 */
 			wp_redirect( apply_filters( 'wp_signup_location', network_site_url( 'wp-signup.php' ) ) );
-			exit(0);
+			do_exit();
 		}
 
 		if ( ! get_option( 'users_can_register' ) ) {
 			wp_redirect( site_url( 'wp-login.php?registration=disabled' ) );
-			exit(0);
+			do_exit();
 		}
 
 		$user_login = '';
@@ -1061,7 +1061,7 @@ switch ( $action ) {
 			if ( ! is_wp_error( $errors ) ) {
 				$redirect_to = ! empty( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : 'wp-login.php?checkemail=registered';
 				wp_safe_redirect( $redirect_to );
-				exit(0);
+				do_exit();
 			}
 		}
 
@@ -1198,7 +1198,7 @@ switch ( $action ) {
 
 		login_header( __( 'User action confirmed.' ), $message );
 		login_footer();
-		exit(0);
+		do_exit();
 
 	case 'login':
 	default:
@@ -1299,7 +1299,7 @@ switch ( $action ) {
 				</body></html>
 				<?php
 
-				exit(0);
+				do_exit();
 			}
 
 			// Check if it is time to add a redirect to the admin email confirmation screen.
@@ -1335,11 +1335,11 @@ switch ( $action ) {
 				}
 
 				wp_redirect( $redirect_to );
-				exit(0);
+				do_exit();
 			}
 
 			wp_safe_redirect( $redirect_to );
-			exit(0);
+			do_exit();
 		}
 
 		$errors = $user;

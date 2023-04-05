@@ -2149,7 +2149,7 @@ function maybe_redirect_404() {
 			}
 
 			wp_redirect( $destination );
-			exit(0);
+			do_exit();
 		}
 	}
 }

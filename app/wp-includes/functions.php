@@ -1732,7 +1732,7 @@ function do_favicon() {
 	do_action( 'do_faviconico' );
 
 	wp_redirect( get_site_icon_url( 32, includes_url( 'images/w-logo-blue-white-bg.png' ) ) );
-	exit(0);
+	do_exit();
 }
 
 /**
@@ -3930,7 +3930,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 </html>
 	<?php
 	if ( $parsed_args['exit'] ) {
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -4010,7 +4010,7 @@ function _json_wp_die_handler( $message, $title = '', $args = array() ) {
 
 	echo wp_json_encode( $data );
 	if ( $parsed_args['exit'] ) {
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -4052,7 +4052,7 @@ function _jsonp_wp_die_handler( $message, $title = '', $args = array() ) {
 	$jsonp_callback = $_GET['_jsonp'];
 	echo '/**/' . $jsonp_callback . '(' . $result . ')';
 	if ( $parsed_args['exit'] ) {
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -4084,7 +4084,7 @@ function _xmlrpc_wp_die_handler( $message, $title = '', $args = array() ) {
 		$wp_xmlrpc_server->output( $error->getXml() );
 	}
 	if ( $parsed_args['exit'] ) {
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -4128,7 +4128,7 @@ EOD;
 
 	echo $xml;
 	if ( $parsed_args['exit'] ) {
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -4152,7 +4152,7 @@ function _scalar_wp_die_handler( $message = '', $title = '', $args = array() ) {
 		if ( is_scalar( $message ) ) {
 			die( (string) $message );
 		}
-		exit(0);
+		do_exit();
 	}
 
 	if ( is_scalar( $message ) ) {
@@ -4436,7 +4436,7 @@ function wp_send_json( $response, $status_code = null, $options = 0 ) {
 			)
 		);
 	} else {
-		exit(0);
+		do_exit();
 	}
 }
 
@@ -5345,7 +5345,7 @@ function dead_db() {
 	// Load custom DB error template, if present.
 	if ( file_exists( WP_CONTENT_DIR . '/db-error.php' ) ) {
 		require_once WP_CONTENT_DIR . '/db-error.php';
-		exit(0);
+		do_exit();
 	}
 
 	// If installing or in the admin, provide the verbose message.

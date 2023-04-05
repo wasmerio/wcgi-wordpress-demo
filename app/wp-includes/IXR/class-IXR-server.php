@@ -148,7 +148,7 @@ EOD;
             header('Content-Type: text/xml');
         header('Date: '.gmdate('r'));
         echo $xml;
-        exit(0);
+        do_exit();
     }
 
     function hasMethod($method)

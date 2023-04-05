@@ -98,7 +98,7 @@ if ( isset( $_REQUEST['attachment_id'] ) && (int) $_REQUEST['attachment_id'] && 
 			echo get_media_item( $id );
 			break;
 	}
-	exit(0);
+	do_exit();
 }
 
 check_admin_referer( 'media-form' );
@@ -126,7 +126,7 @@ if ( is_wp_error( $id ) ) {
 		),
 		esc_html( $id->get_error_message() )
 	);
-	exit(0);
+	do_exit();
 }
 
 if ( $_REQUEST['short'] ) {

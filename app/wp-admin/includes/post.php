@@ -2105,7 +2105,7 @@ function redirect_post( $post_id = '' ) {
 	 * @param int    $post_id  The post ID.
 	 */
 	wp_redirect( apply_filters( 'redirect_post_location', $location, $post_id ) );
-	exit(0);
+	do_exit();
 }
 
 /**

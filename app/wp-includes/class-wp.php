@@ -548,7 +548,7 @@ class WP {
 		}
 
 		if ( $exit_required ) {
-			exit(0);
+			do_exit();
 		}
 
 		/**

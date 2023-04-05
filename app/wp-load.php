@@ -71,7 +71,7 @@ if ( file_exists( ABSPATH . 'wp-config.php' ) ) {
 	// Redirect to setup-config.php.
 	if ( false === strpos( $_SERVER['REQUEST_URI'], 'setup-config' ) ) {
 		header( 'Location: ' . $path );
-		exit(0);
+		do_exit();
 	}
 
 	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );

@@ -15,7 +15,7 @@ require __DIR__ . '/wp-blog-header.php';
 
 if ( ! is_multisite() ) {
 	wp_redirect( wp_registration_url() );
-	exit(0);
+	do_exit();
 }
 
 $valid_error_codes = array( 'already_active', 'blog_taken' );
@@ -40,7 +40,7 @@ if ( $key ) {
 	if ( remove_query_arg( false ) !== $redirect_url ) {
 		setcookie( $activate_cookie, $key, 0, $activate_path, COOKIE_DOMAIN, is_ssl(), true );
 		wp_safe_redirect( $redirect_url );
-		exit(0);
+		do_exit();
 	} else {
 		$result = wpmu_activate_signup( $key );
 	}

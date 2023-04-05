@@ -6,15 +6,22 @@
  * @subpackage Administration
  */
 
+var_error_log("wp-admin -1");
+
 /** Load WordPress Bootstrap */
 require_once __DIR__ . '/admin.php';
 
+var_error_log("wp-admin 0");
+
 /** Load WordPress dashboard API */
 require_once ABSPATH . 'wp-admin/includes/dashboard.php';
+var_error_log("wp-admin 0.1");
 
 wp_dashboard_setup();
+var_error_log("wp-admin 1");
 
 wp_enqueue_script( 'dashboard' );
+var_error_log("wp-admin 2");
 
 if ( current_user_can( 'install_plugins' ) ) {
 	wp_enqueue_script( 'plugin-install' );

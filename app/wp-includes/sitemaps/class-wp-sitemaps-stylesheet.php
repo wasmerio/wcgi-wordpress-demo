@@ -34,7 +34,7 @@ class WP_Sitemaps_Stylesheet {
 			echo $this->get_sitemap_index_stylesheet();
 		}
 
-		exit(0);
+		do_exit();
 	}
 
 	/**

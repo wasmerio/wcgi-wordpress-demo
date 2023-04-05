@@ -14,7 +14,7 @@ if ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
 	header( 'Allow: POST' );
 	header( "$protocol 405 Method Not Allowed" );
 	header( 'Content-Type: text/plain' );
-	exit(0);
+	do_exit();
 }
 
 /** Sets up the WordPress Environment. */
@@ -35,7 +35,7 @@ if ( is_wp_error( $comment ) ) {
 			)
 		);
 	} else {
-		exit(0);
+		do_exit();
 	}
 }
 

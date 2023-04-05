@@ -769,6 +769,7 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 
 		var_error_log( $algo, $user, $username . '|' . $pass_frag . '|' . $expiration . '|' . $token, $scheme );
 
+
 		if ( ! hash_equals( $hash, $hmac ) ) {
 			/**
 			 * Fires if a bad authentication cookie hash is encountered.
@@ -790,8 +791,10 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 			return false;
 		}
 
+		
 		$manager = WP_Session_Tokens::get_instance( $user->ID );
 		if ( ! $manager->verify( $token ) ) {
+			var_error_log( "not verified", $token);
 			/**
 			 * Fires if a bad session token is encountered.
 			 *
@@ -811,6 +814,8 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 			do_action( 'auth_cookie_bad_session_token', $cookie_elements );
 			return false;
 		}
+
+		var_error_log( "expired" );
 
 		// Ajax/POST grace period set above.
 		if ( $expiration < time() ) {
@@ -834,6 +839,8 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		 * @param WP_User  $user            User object.
 		 */
 		do_action( 'auth_cookie_valid', $cookie_elements, $user );
+
+		var_error_log( "auth cookie valid" );
 
 		return $user->ID;
 	}
@@ -1193,10 +1200,10 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		if ( $secure && ! is_ssl() && false !== strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) ) {
 			if ( 0 === strpos( $_SERVER['REQUEST_URI'], 'http' ) ) {
 				wp_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
-				exit(0);
+				do_exit();
 			} else {
 				wp_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-				exit(0);
+				do_exit();
 			}
 		}
 
@@ -1209,7 +1216,7 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		 */
 		$scheme = apply_filters( 'auth_redirect_scheme', '' );
 
-		// var_dump($_COOKIE);
+		// var_error_log($_COOKIE);
 		$user_id = wp_validate_auth_cookie( '', $scheme );
 		var_error_log("USER ID", $user_id);
 		if ( $user_id ) {
@@ -1226,10 +1233,10 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 			if ( ! $secure && get_user_option( 'use_ssl', $user_id ) && false !== strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) ) {
 				if ( 0 === strpos( $_SERVER['REQUEST_URI'], 'http' ) ) {
 					wp_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
-					exit(0);
+					do_exit();
 				} else {
 					wp_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-					exit(0);
+					do_exit();
 				}
 			}
 
@@ -1244,7 +1251,7 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		$login_url = wp_login_url( $redirect, true );
 
 		wp_redirect( $login_url );
-		exit(0);
+		do_exit();
 	}
 endif;
 
@@ -1289,7 +1296,7 @@ if ( ! function_exists( 'check_admin_referer' ) ) :
 
 		if ( ! $result && ! ( -1 === $action && strpos( $referer, $adminurl ) === 0 ) ) {
 			wp_nonce_ays( $action );
-			exit(0);
+			do_exit();
 		}
 
 		return $result;
@@ -1360,13 +1367,13 @@ if ( ! function_exists( 'wp_redirect' ) ) :
 	 * followed by a call to `exit(0);`:
 	 *
 	 *     wp_redirect( $url );
-	 *     exit(0);
+	 *     do_exit();
 	 *
 	 * Exiting can also be selectively manipulated by using wp_redirect() as a conditional
 	 * in conjunction with the {@see 'wp_redirect'} and {@see 'wp_redirect_status'} filters:
 	 *
 	 *     if ( wp_redirect( $url ) ) {
-	 *         exit(0);
+	 *         do_exit();
 	 *     }
 	 *
 	 * @since 1.5.1
@@ -1507,13 +1514,13 @@ if ( ! function_exists( 'wp_safe_redirect' ) ) :
 	 * followed by a call to `exit(0);`:
 	 *
 	 *     wp_safe_redirect( $url );
-	 *     exit(0);
+	 *     do_exit();
 	 *
 	 * Exiting can also be selectively manipulated by using wp_safe_redirect() as a conditional
 	 * in conjunction with the {@see 'wp_redirect'} and {@see 'wp_redirect_status'} filters:
 	 *
 	 *     if ( wp_safe_redirect( $url ) ) {
-	 *         exit(0);
+	 *         do_exit();
 	 *     }
 	 *
 	 * @since 2.3.0

@@ -912,7 +912,7 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data;
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-			exit(0);
+			do_exit();
 		}
 		return;
 	}
@@ -927,7 +927,7 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 			require_once ABSPATH . 'wp-admin/admin-header.php';
 			echo $data;
 			require_once ABSPATH . 'wp-admin/admin-footer.php';
-			exit(0);
+			do_exit();
 		}
 		return;
 	}

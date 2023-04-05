@@ -6,6 +6,8 @@
  * @subpackage Administration
  */
 
+ var_error_log("admin.php 0");
+
 /**
  * In WordPress Administration Screens
  *
@@ -31,11 +33,17 @@ if ( isset( $_GET['import'] ) && ! defined( 'WP_LOAD_IMPORTERS' ) ) {
 	define( 'WP_LOAD_IMPORTERS', true );
 }
 
+var_error_log("admin.php 1");
+
 require_once dirname( __DIR__ ) . '/wp-load.php';
+
+var_error_log("admin.php 2");
 
 nocache_headers();
 
 if ( get_option( 'db_upgraded' ) ) {
+
+	var_error_log("admin.php 3");
 
 	flush_rewrite_rules();
 	update_option( 'db_upgraded', false );
@@ -50,10 +58,11 @@ if ( get_option( 'db_upgraded' ) ) {
 } elseif ( ! wp_doing_ajax() && empty( $_POST )
 	&& (int) get_option( 'db_version' ) !== $wp_db_version
 ) {
+	var_error_log("admin.php 4");
 
 	if ( ! is_multisite() ) {
 		wp_redirect( admin_url( 'upgrade.php?_wp_http_referer=' . urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
-		exit(0);
+		do_exit();
 	}
 
 	/**
@@ -93,10 +102,14 @@ if ( get_option( 'db_upgraded' ) ) {
 		unset( $c );
 	}
 }
+var_error_log("admin.php 5");
 
 require_once ABSPATH . 'wp-admin/includes/admin.php';
 
+var_error_log("admin.php 6");
+
 auth_redirect();
+var_error_log("admin.php 7");
 
 // Schedule Trash collection.
 if ( ! wp_next_scheduled( 'wp_scheduled_delete' ) && ! wp_installing() ) {
@@ -107,6 +120,7 @@ if ( ! wp_next_scheduled( 'wp_scheduled_delete' ) && ! wp_installing() ) {
 if ( ! wp_next_scheduled( 'delete_expired_transients' ) && ! wp_installing() ) {
 	wp_schedule_event( time(), 'daily', 'delete_expired_transients' );
 }
+var_error_log("admin.php 8");
 
 set_screen_options();
 
@@ -158,9 +172,12 @@ if ( WP_NETWORK_ADMIN ) {
 	require ABSPATH . 'wp-admin/menu.php';
 }
 
+var_error_log("admin.php 9");
+
 if ( current_user_can( 'manage_options' ) ) {
 	wp_raise_memory_limit( 'admin' );
 }
+var_error_log("admin.php 10");
 
 /**
  * Fires as an admin screen or script is being initialized.
@@ -173,6 +190,7 @@ if ( current_user_can( 'manage_options' ) ) {
  * @since 2.5.0
  */
 do_action( 'admin_init' );
+var_error_log("admin.php 11");
 
 if ( isset( $plugin_page ) ) {
 	if ( ! empty( $typenow ) ) {
@@ -194,7 +212,7 @@ if ( isset( $plugin_page ) ) {
 				$query_string = 'page=' . $plugin_page;
 			}
 			wp_redirect( admin_url( 'tools.php?' . $query_string ) );
-			exit(0);
+			do_exit();
 		}
 	}
 	unset( $the_parent );
@@ -296,7 +314,7 @@ if ( isset( $plugin_page ) ) {
 
 	require_once ABSPATH . 'wp-admin/admin-footer.php';
 
-	exit(0);
+	do_exit();
 } elseif ( isset( $_GET['import'] ) ) {
 
 	$importer = $_GET['import'];
@@ -307,12 +325,12 @@ if ( isset( $plugin_page ) ) {
 
 	if ( validate_file( $importer ) ) {
 		wp_redirect( admin_url( 'import.php?invalid=' . $importer ) );
-		exit(0);
+		do_exit();
 	}
 
 	if ( ! isset( $wp_importers[ $importer ] ) || ! is_callable( $wp_importers[ $importer ][2] ) ) {
 		wp_redirect( admin_url( 'import.php?invalid=' . $importer ) );
-		exit(0);
+		do_exit();
 	}
 
 	/**
@@ -368,7 +386,7 @@ if ( isset( $plugin_page ) ) {
 	// Make sure rules are flushed.
 	flush_rewrite_rules( false );
 
-	exit(0);
+	do_exit();
 } else {
 	/**
 	 * Fires before a particular screen is loaded.

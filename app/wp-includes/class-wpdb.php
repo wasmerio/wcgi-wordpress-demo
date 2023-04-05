@@ -2061,7 +2061,7 @@ class wpdb {
 			// Load custom DB error template, if present.
 			if ( file_exists( WP_CONTENT_DIR . '/db-error.php' ) ) {
 				require_once WP_CONTENT_DIR . '/db-error.php';
-				exit(0);
+				do_exit();
 			}
 
 			$message = '<h1>' . __( 'Error establishing a database connection' ) . "</h1>\n";

@@ -156,7 +156,7 @@ if ( isset( $_REQUEST['action'] ) && 'add-site' === $_REQUEST['action'] ) {
 				'site-new.php'
 			)
 		);
-		exit(0);
+		do_exit();
 	} else {
 		wp_die( $id->get_error_message() );
 	}

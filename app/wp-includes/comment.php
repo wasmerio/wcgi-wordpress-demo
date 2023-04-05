@@ -736,7 +736,7 @@ function wp_allow_comment( $commentdata, $wp_error = false ) {
 	 * @param string $comment_author_email Comment author's email.
 	 * @param string $comment_date_gmt     GMT date the comment was posted.
 	 * @param bool   $wp_error             Whether to return a WP_Error object instead of executing
-	 *                                     wp_exit(0); or exit(0); if a comment flood is occurring.
+	 *                                     wp_exit(0); or do_exit(); if a comment flood is occurring.
 	 */
 	do_action(
 		'check_comment_flood',
@@ -759,7 +759,7 @@ function wp_allow_comment( $commentdata, $wp_error = false ) {
 	 * @param string $comment_author_email Comment author's email.
 	 * @param string $comment_date_gmt     GMT date the comment was posted.
 	 * @param bool   $wp_error             Whether to return a WP_Error object instead of executing
-	 *                                     wp_exit(0); or exit(0); if a comment flood is occurring.
+	 *                                     wp_exit(0); or do_exit(); if a comment flood is occurring.
 	 */
 	$is_flood = apply_filters(
 		'wp_is_comment_flood',
@@ -861,7 +861,7 @@ function check_comment_flood_db() {
  * @param string $email     Comment author's email address.
  * @param string $date      MySQL time string.
  * @param bool   $avoid_die When true, a disallowed comment will result in the function
- *                          returning without executing wp_exit(0); or exit(0);. Default false.
+ *                          returning without executing wp_exit(0); or do_exit();. Default false.
  * @return bool Whether comment flooding is occurring.
  */
 function wp_check_comment_flood( $is_flood, $ip, $email, $date, $avoid_die = false ) {

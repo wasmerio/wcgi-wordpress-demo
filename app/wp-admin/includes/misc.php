@@ -807,7 +807,7 @@ function set_screen_options() {
 	}
 
 	wp_safe_redirect( $url );
-	exit(0);
+	do_exit();
 }
 
 /**
