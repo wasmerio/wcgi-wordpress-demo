@@ -1,4 +1,4 @@
-<?
+<?php
 
 function var_error_log(...$vars)
 {
