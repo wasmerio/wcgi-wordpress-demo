@@ -15,5 +15,9 @@
 
 define('WP_USE_THEMES', true);
 
+/* HACKS for PHP-CGI WASI */
+require_once __DIR__ . '/hacks.php';
+/* END HACKS */
+
 /** Loads the WordPress Environment and Template */
 require __DIR__ . '/wp-blog-header.php';

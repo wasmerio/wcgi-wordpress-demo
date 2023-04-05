@@ -13,7 +13,7 @@ $requested_path_local = dirname(__FILE__) . $path_info;
 
 if (SERVE_STATIC) {
     if (is_dir($requested_path_local)) {
-        $requested_path_local_with_index = $requested_path_local . "/index.php";
+        $requested_path_local_with_index = $requested_path_local . "index.php";
         if (is_file($requested_path_local_with_index)) {
             $requested_path_local = $requested_path_local_with_index;
         }
@@ -25,7 +25,7 @@ if (SERVE_STATIC) {
             serve_static_file($requested_path_local);
         } else {
             // if requested file is php, include it
-            include_once $requested_path_local;
+            require $requested_path_local;
         }
     }
 } else {

@@ -767,8 +767,6 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		$algo = function_exists( 'hash' ) ? 'sha256' : 'sha1';
 		$hash = hash_hmac( $algo, $username . '|' . $expiration . '|' . $token, $key );
 
-		var_error_log( $algo, $user, $username . '|' . $pass_frag . '|' . $expiration . '|' . $token, $scheme );
-
 
 		if ( ! hash_equals( $hash, $hmac ) ) {
 			/**
@@ -794,7 +792,6 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		
 		$manager = WP_Session_Tokens::get_instance( $user->ID );
 		if ( ! $manager->verify( $token ) ) {
-			var_error_log( "not verified", $token);
 			/**
 			 * Fires if a bad session token is encountered.
 			 *
@@ -814,8 +811,6 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 			do_action( 'auth_cookie_bad_session_token', $cookie_elements );
 			return false;
 		}
-
-		var_error_log( "expired" );
 
 		// Ajax/POST grace period set above.
 		if ( $expiration < time() ) {
@@ -839,8 +834,6 @@ if ( ! function_exists( 'wp_validate_auth_cookie' ) ) :
 		 * @param WP_User  $user            User object.
 		 */
 		do_action( 'auth_cookie_valid', $cookie_elements, $user );
-
-		var_error_log( "auth cookie valid" );
 
 		return $user->ID;
 	}
@@ -1216,9 +1209,7 @@ if ( ! function_exists( 'auth_redirect' ) ) :
 		 */
 		$scheme = apply_filters( 'auth_redirect_scheme', '' );
 
-		// var_error_log($_COOKIE);
 		$user_id = wp_validate_auth_cookie( '', $scheme );
-		var_error_log("USER ID", $user_id);
 		if ( $user_id ) {
 			/**
 			 * Fires before the authentication redirect.
