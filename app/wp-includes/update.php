@@ -1009,6 +1009,9 @@ function _maybe_update_core() {
  * @access private
  */
 function _maybe_update_plugins() {
+	return [
+		"last_checked" => 1680680646,
+	];
 	$current = get_site_transient( 'update_plugins' );
 
 	if ( isset( $current->last_checked )

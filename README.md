@@ -33,6 +33,15 @@ Replaced `wp-includes/class-wp-http.php`, `wp-includes/class-wp-http-streams.php
   }
 ```
 
+Replaced `_maybe_update_plugins` in `wp-includes/update.php`:
+
+```php
+function _maybe_update_plugins() {
+	return [
+		"last_checked" => 1680680646,
+	];
+```
+
 ## License
 
 This project is licensed under either of
