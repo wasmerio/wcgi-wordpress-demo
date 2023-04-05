@@ -13,27 +13,6 @@
  * @var bool
  */
 
-// Our PHP wrapper doesn't have realpath defined, so we hack it a bit
-
-if (!function_exists('realpath')) {
-    function realpath($path)
-    {
-        $path = str_replace('\\', '/', $path);
-        $path = preg_replace('/\/+/', '/', $path);
-        $parts = array_filter(explode('/', $path), 'strlen');
-        $absolutes = array();
-        foreach ($parts as $part) {
-            if ('.' == $part) continue;
-            if ('..' == $part) {
-                array_pop($absolutes);
-            } else {
-                $absolutes[] = $part;
-            }
-        }
-        return str_replace('//', '/', '/' . implode('/', $absolutes));
-    }
-}
-
 define('WP_USE_THEMES', true);
 // define('WP_DEFAULT_THEME', 'mesmerize');
 define('USE_CACHE', false);
