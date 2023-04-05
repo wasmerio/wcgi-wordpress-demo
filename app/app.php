@@ -18,18 +18,19 @@ if (SERVE_STATIC) {
             $requested_path_local = $requested_path_local_with_index;
         }
     }
-
     if (is_file($requested_path_local)) {
         // if requested file is'nt a php file
         if (!preg_match('/\.php$/', $requested_path_local)) {
             serve_static_file($requested_path_local);
         } else {
             // if requested file is php, include it
-            require $requested_path_local;
+            include_once $requested_path_local;
+            exit(0);
         }
     }
-} else {
-    if (!preg_match('/\.(css|txt|js|png|jpg|jpeg|json|htm|html|csv)$/', $requested_path_local)) {
-        require __DIR__ . '/index.php';
-    }
 }
+
+if (!preg_match('/\.(css|txt|js|png|jpg|jpeg|json|htm|html|csv)$/', $requested_path_local)) {
+    require __DIR__ . '/index.php';
+}
+

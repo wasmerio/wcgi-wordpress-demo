@@ -16,6 +16,7 @@ if (!function_exists('do_exit')) {
     function do_exit()
     {
         fwrite(STDOUT, '');
+        // echo " ";
         exit(0);
     }
 }
