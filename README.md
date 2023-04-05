@@ -25,23 +25,30 @@ INFO run: wasmer_wasix::runners::wcgi::runner: Starting the server address=127.0
 This codebase does the following hacks to Wordpress to have it full running:
 
 * Replace `exit;` or `die;` to `exit(0);` or `die(0);`: they are equivalent, but they don't work without the arguments on the `php-cgi` WASI counterpart
-* Call `fwrite(STDOUT, '');` before `exit` as any header sent before an exit will be skipped if no body is being written
+* Call `echo " ";` before `exit` as any header sent before an exit will be skipped if no body is being written
 
 Replaced `wp-includes/class-wp-http.php`, `wp-includes/class-wp-http-streams.php`, `wp-includes/class-wp-http-curl.php` to return `WP_Error`;
 
 ```php
-	public function request( $url, $args = array() ) {
-		return new WP_Error( 'http_request_failed', __( "The HTTP request to $url failed." ) );
+public function request( $url, $args = array() ) {
+  if (defined("IS_WASI") && IS_WASI) {
+    return new WP_Error( 'http_request_failed', __( "The HTTP request to $url failed." ) );
   }
+  // ...
+}
 ```
 
 Replaced `_maybe_update_plugins` in `wp-includes/update.php`:
 
 ```php
 function _maybe_update_plugins() {
-	return [
-		"last_checked" => 1680680646,
-	];
+  if (defined("IS_WASI") && IS_WASI) {
+    return [
+      "last_checked" => time() - 5,
+    ];
+  }
+  // ...
+}
 ```
 
 ## License

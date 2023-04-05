@@ -148,7 +148,9 @@ class WP_Http {
 	 *                        A WP_Error instance upon error.
 	 */
 	public function request( $url, $args = array() ) {
-		return new WP_Error( 'http_request_failed', __( "The HTTP request to $url failed." ) );
+		if (defined("IS_WASI") && IS_WASI) {
+			return new WP_Error( 'http_request_failed', __( "The HTTP request to $url failed." ) );
+		}
 		$defaults = array(
 			'method'              => 'GET',
 			/**

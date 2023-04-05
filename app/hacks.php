@@ -13,10 +13,17 @@ function var_error_log(...$vars)
 // A function that replaces exit; fixing it by adding a status always
 // and by forcing the headers to be sent by forcing a write to STDOUT
 if (!function_exists('do_exit')) {
-    function do_exit()
-    {
-        echo " ";
-        exit(0);
+    if (defined("IS_WASI") && IS_WASI) {
+        function do_exit()
+        {
+            echo " ";
+            exit(0);
+        }
+    }
+    else {
+        function do_exit() {
+            exit(0);
+        }
     }
 }
 

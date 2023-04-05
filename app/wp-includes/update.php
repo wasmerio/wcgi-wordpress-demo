@@ -1009,9 +1009,12 @@ function _maybe_update_core() {
  * @access private
  */
 function _maybe_update_plugins() {
-	return [
-		"last_checked" => 1680680646,
-	];
+	if (defined("IS_WASI") && IS_WASI) {
+		return [
+			// We fake the last_checked value to avoid the update check.
+			"last_checked" => time() - 5,
+		];
+	}
 	$current = get_site_transient( 'update_plugins' );
 
 	if ( isset( $current->last_checked )

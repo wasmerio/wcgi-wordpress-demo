@@ -7,6 +7,7 @@ require_once __DIR__ . '/hacks.php';
 /* END HACKS */
 
 define('SERVE_STATIC', true);
+define('IS_WASI', true);
 
 $path_info = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
 $requested_path_local = dirname(__FILE__) . $path_info;
