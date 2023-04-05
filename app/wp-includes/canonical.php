@@ -480,7 +480,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 					$redirect_url = get_feed_link( $old_feed_files[ basename( $redirect['path'] ) ] );
 
 					wp_redirect( $redirect_url, 301 );
-					exit(0);;
+					exit(0);
 				}
 			}
 
@@ -539,7 +539,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 			}
 
 			wp_redirect( $redirect_url, 301 );
-			exit(0);;
+			exit(0);
 		}
 	}
 

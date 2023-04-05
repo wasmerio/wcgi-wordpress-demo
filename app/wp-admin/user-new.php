@@ -41,13 +41,13 @@ if ( isset( $_REQUEST['action'] ) && 'adduser' === $_REQUEST['action'] ) {
 			$user_details = get_user_by( 'login', $user_email );
 		} else {
 			wp_redirect( add_query_arg( array( 'update' => 'enter_email' ), 'user-new.php' ) );
-			exit(0);;
+			exit(0);
 		}
 	}
 
 	if ( ! $user_details ) {
 		wp_redirect( add_query_arg( array( 'update' => 'does_not_exist' ), 'user-new.php' ) );
-		exit(0);;
+		exit(0);
 	}
 
 	if ( ! current_user_can( 'promote_user', $user_details->ID ) ) {
@@ -179,7 +179,7 @@ Please click the following link to confirm the invite:
 		}
 	}
 	wp_redirect( $redirect );
-	exit(0);;
+	exit(0);
 } elseif ( isset( $_REQUEST['action'] ) && 'createuser' === $_REQUEST['action'] ) {
 	check_admin_referer( 'create-user', '_wpnonce_create-user' );
 
@@ -203,7 +203,7 @@ Please click the following link to confirm the invite:
 				$redirect = add_query_arg( 'update', 'add', 'user-new.php' );
 			}
 			wp_redirect( $redirect );
-			exit(0);;
+			exit(0);
 		}
 	} else {
 		// Adding a new user to this site.
@@ -246,7 +246,7 @@ Please click the following link to confirm the invite:
 				$redirect = add_query_arg( array( 'update' => 'newuserconfirmation' ), 'user-new.php' );
 			}
 			wp_redirect( $redirect );
-			exit(0);;
+			exit(0);
 		}
 	}
 }

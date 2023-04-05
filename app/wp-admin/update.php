@@ -85,7 +85,7 @@ if ( isset( $_GET['action'] ) ) {
 			wp_redirect( admin_url( 'update.php?action=activate-plugin&failure=true&plugin=' . urlencode( $plugin ) . '&_wpnonce=' . $_GET['_wpnonce'] ) );
 			activate_plugin( $plugin, '', ! empty( $_GET['networkwide'] ), true );
 			wp_redirect( admin_url( 'update.php?action=activate-plugin&success=true&plugin=' . urlencode( $plugin ) . '&_wpnonce=' . $_GET['_wpnonce'] ) );
-			exit(0);;
+			exit(0);
 		}
 		iframe_header( __( 'Plugin Reactivation' ), true );
 		if ( isset( $_GET['success'] ) ) {

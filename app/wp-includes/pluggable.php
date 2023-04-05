@@ -1289,7 +1289,7 @@ if ( ! function_exists( 'check_admin_referer' ) ) :
 
 		if ( ! $result && ! ( -1 === $action && strpos( $referer, $adminurl ) === 0 ) ) {
 			wp_nonce_ays( $action );
-			exit(0);;
+			exit(0);
 		}
 
 		return $result;

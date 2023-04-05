@@ -157,9 +157,9 @@ class WP_Ajax_Response {
 		}
 		echo '</wp_ajax>';
 		if ( wp_doing_ajax() ) {
-			wp_exit(0);;
+			wp_exit(0);
 		} else {
-			exit(0);;
+			exit(0);
 		}
 	}
 }

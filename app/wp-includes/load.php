@@ -291,7 +291,7 @@ function wp_maintenance() {
 
 	if ( file_exists( WP_CONTENT_DIR . '/maintenance.php' ) ) {
 		require_once WP_CONTENT_DIR . '/maintenance.php';
-		exit(0);;
+		exit(0);
 	}
 
 	require_once ABSPATH . WPINC . '/functions.php';
@@ -806,7 +806,7 @@ function wp_not_installed() {
 	$link = wp_guess_url() . '/wp-admin/install.php';
 
 	wp_redirect( $link );
-	exit(0);;
+	exit(0);
 }
 
 /**
@@ -1671,7 +1671,7 @@ function wp_start_scraping_edited_file_errors() {
 			)
 		);
 		echo "###### wp_scraping_result_end:$key ######";
-		exit(0);;
+		exit(0);
 	}
 	if ( ! defined( 'WP_SANDBOX_SCRAPING' ) ) {
 		define( 'WP_SANDBOX_SCRAPING', true );

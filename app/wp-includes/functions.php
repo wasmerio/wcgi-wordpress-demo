@@ -3930,7 +3930,7 @@ function _default_wp_die_handler( $message, $title = '', $args = array() ) {
 </html>
 	<?php
 	if ( $parsed_args['exit'] ) {
-		exit(0);;
+		exit(0);
 	}
 }
 
@@ -4010,7 +4010,7 @@ function _json_wp_die_handler( $message, $title = '', $args = array() ) {
 
 	echo wp_json_encode( $data );
 	if ( $parsed_args['exit'] ) {
-		exit(0);;
+		exit(0);
 	}
 }
 
@@ -4052,7 +4052,7 @@ function _jsonp_wp_die_handler( $message, $title = '', $args = array() ) {
 	$jsonp_callback = $_GET['_jsonp'];
 	echo '/**/' . $jsonp_callback . '(' . $result . ')';
 	if ( $parsed_args['exit'] ) {
-		exit(0);;
+		exit(0);
 	}
 }
 
@@ -4084,7 +4084,7 @@ function _xmlrpc_wp_die_handler( $message, $title = '', $args = array() ) {
 		$wp_xmlrpc_server->output( $error->getXml() );
 	}
 	if ( $parsed_args['exit'] ) {
-		exit(0);;
+		exit(0);
 	}
 }
 
@@ -4128,7 +4128,7 @@ EOD;
 
 	echo $xml;
 	if ( $parsed_args['exit'] ) {
-		exit(0);;
+		exit(0);
 	}
 }
 
@@ -4152,7 +4152,7 @@ function _scalar_wp_die_handler( $message = '', $title = '', $args = array() ) {
 		if ( is_scalar( $message ) ) {
 			die( (string) $message );
 		}
-		exit(0);;
+		exit(0);
 	}
 
 	if ( is_scalar( $message ) ) {
@@ -5345,7 +5345,7 @@ function dead_db() {
 	// Load custom DB error template, if present.
 	if ( file_exists( WP_CONTENT_DIR . '/db-error.php' ) ) {
 		require_once WP_CONTENT_DIR . '/db-error.php';
-		exit(0);;
+		exit(0);
 	}
 
 	// If installing or in the admin, provide the verbose message.

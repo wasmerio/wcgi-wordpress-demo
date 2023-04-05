@@ -710,7 +710,7 @@ class SimplePie
 		if (version_compare(PHP_VERSION, '5.6', '<'))
 		{
 			trigger_error('Please upgrade to PHP 5.6 or newer.');
-			exit(0);;
+			exit(0);
 		}
 
 		// Other objects, instances created here so we can set options on them

@@ -15,7 +15,7 @@ require __DIR__ . '/wp-blog-header.php';
 
 if ( ! is_multisite() ) {
 	wp_redirect( wp_registration_url() );
-	exit(0);;
+	exit(0);
 }
 
 $valid_error_codes = array( 'already_active', 'blog_taken' );

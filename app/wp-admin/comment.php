@@ -102,18 +102,18 @@ switch ( $action ) {
 
 		if ( ! $comment ) {
 			wp_redirect( admin_url( 'edit-comments.php?error=1' ) );
-			exit(0);;
+			exit(0);
 		}
 
 		if ( ! current_user_can( 'edit_comment', $comment->comment_ID ) ) {
 			wp_redirect( admin_url( 'edit-comments.php?error=2' ) );
-			exit(0);;
+			exit(0);
 		}
 
 		// No need to re-approve/re-trash/re-spam a comment.
 		if ( str_replace( '1', 'approve', $comment->comment_approved ) === $action ) {
 			wp_redirect( admin_url( 'edit-comments.php?same=' . $comment_id ) );
-			exit(0);;
+			exit(0);
 		}
 
 		require_once ABSPATH . 'wp-admin/admin-header.php';
