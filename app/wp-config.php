@@ -42,7 +42,9 @@ define( 'DB_CHARSET', 'utf8' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
-define('DB_DIR', dirname(dirname(__FILE__)) . '/db/');
+define( 'DB_ENGINE', 'sqlite' );
+
+define( 'DB_DIR', dirname(dirname(__FILE__)) . '/db/' );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -66,6 +68,7 @@ define( 'NONCE_SALT',       'put your unique phrase here' );
 
 define( 'WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
 define( 'WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/' );
+define( 'WP_USE_THEMES', true);
 
 /**#@-*/
 
