@@ -15,8 +15,7 @@ function var_error_log(...$vars)
 if (!function_exists('do_exit')) {
     function do_exit()
     {
-        fwrite(STDOUT, '');
-        // echo " ";
+        echo " ";
         exit(0);
     }
 }

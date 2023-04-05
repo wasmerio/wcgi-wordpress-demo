@@ -11,6 +11,10 @@ define('SERVE_STATIC', true);
 $path_info = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
 $requested_path_local = dirname(__FILE__) . $path_info;
 
+if (!isset($_SERVER['SERVER_NAME'])) {
+    $_SERVER['SERVER_NAME'] = 'localhost';
+}
+
 if (SERVE_STATIC) {
     if (is_dir($requested_path_local)) {
         $requested_path_local_with_index = $requested_path_local . "index.php";
