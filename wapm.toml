@@ -1,5 +1,5 @@
 [package]
-name = "Michael-F-bryan/wcgi-python-template"
+name = "wasmer/wcgi-python-template"
 version = "0.1.0"
 description = "A PHP template for WCGI applications"
 license = "MIT OR Apache-2.0"

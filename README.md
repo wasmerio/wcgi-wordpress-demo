@@ -8,13 +8,15 @@ Wasmer.
 To run this demo, you will need to install [the Wasmer toolchain][install].
 
 ```console
-$ curl https://get.wasmer.io -sSfL | sh
+$ curl https://get.wasmer.io -sSfL | sh -s "v3.2.0-beta.2"
 ```
+
+(version `v3.2.0-beta.2` or more recent is required).
 
 You can use `wasmer run-unstable` to run the website locally.
 
 ```console
-$ wasmer run-unstable .
+$ wasmer run-unstable . --mapdir=/db:db
 INFO run: wasmer_wasix::runners::wcgi::runner: Starting the server address=127.0.0.1:8000 command_name="php"
 ```
 
