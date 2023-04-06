@@ -22,6 +22,7 @@ if (!function_exists('do_exit')) {
     }
     else {
         function do_exit() {
+            echo " ";
             exit(0);
         }
     }
