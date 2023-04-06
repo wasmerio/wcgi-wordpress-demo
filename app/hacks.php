@@ -13,18 +13,10 @@ function var_error_log(...$vars)
 // A function that replaces exit; fixing it by adding a status always
 // and by forcing the headers to be sent by forcing a write to STDOUT
 if (!function_exists('do_exit')) {
-    if (defined("IS_WASI") && IS_WASI) {
-        function do_exit()
-        {
-            echo " ";
-            exit(0);
-        }
-    }
-    else {
-        function do_exit() {
-            echo " ";
-            exit(0);
-        }
+    function do_exit()
+    {
+        echo " ";
+        exit(0);
     }
 }
 
@@ -148,11 +140,11 @@ function serve_static_file($requestedAbsoluteFile) {
     //     trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag
     // ) {
     //     header("HTTP/1.1 304 Not Modified");
-    //     echo " ";
-    //     echo " "; exit(0);
+    //     exit(0);
     // }
 
     $fh = fopen($requestedAbsoluteFile, 'r');
     fpassthru($fh);
     fclose($fh);
+    exit(0);
 }
