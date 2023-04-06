@@ -1,6 +1,6 @@
 [package]
 name = "wasmer/wcgi-wordpress-demo"
-version = "0.1.3"
+version = "0.1.6"
 description = "A PHP Wordpress template for WCGI applications"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
@@ -18,7 +18,7 @@ module = "php"
 
 [command.annotations]
 wcgi = { dialect = "rfc-3875" }
-wasi = { atom = "php", env = ["SCRIPT_FILENAME=/app/app.php", "SCRIPT_NAME=app.php", "DOCUMENT_ROOT=/app/"] }
+wasi = { atom = "php", env = ["SCRIPT_FILENAME=/app/app.php", "DOCUMENT_ROOT=/app/"] }
 
 [fs]
 "app" = "app"

@@ -10,6 +10,9 @@ define('SERVE_STATIC', true);
 define('IS_WASI', true);
 
 $path_info = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
+if (!isset($_SERVER["SCRIPT_NAME"])) {
+    $_SERVER['SCRIPT_NAME'] = $path_info;
+}
 $requested_path_local = dirname(__FILE__) . $path_info;
 
 if (!isset($_SERVER['SERVER_NAME'])) {
